@@ -196,7 +196,7 @@
     @media(max-width:480px) { .amenity-grid { grid-template-columns: repeat(2,1fr); } }
 
     /* CTA BAND */
-    .cta-band { background: linear-gradient(135deg, #0e0b07 0%, #241a0d 55%, #3a2c12 100%); padding: var(--space-xl) 0; text-align: center; }
+    .cta-band { background: linear-gradient(135deg, #081b24 0%, #0e2a3a 55%, #16404d 100%); padding: var(--space-xl) 0; text-align: center; }
     .cta-band h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem,5vw,3.2rem); color: #fff; margin-bottom: 0.8rem; font-weight: 300; }
     .cta-band p { color: rgba(255,255,255,0.72); margin-bottom: 2.5rem; font-size: clamp(0.9rem,1.5vw,1rem); }
     .btn-cta { background: var(--champagne); color: #171207; padding: clamp(0.9rem,2vw,1.1rem) clamp(2rem,4vw,3rem); font-size: clamp(0.78rem,1.3vw,0.88rem); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; border-radius: var(--radius); transition: all var(--tr); display: inline-block; }
@@ -217,6 +217,18 @@
       .lb-prev { left: 0.4rem; }
       .lb-next { right: 0.4rem; }
     }
+    /* ── Andaman teal palette (no gold on this page) ── */
+    body {
+      --accent: #1b4d5c; --accent-2: #7fa6a8; --accent-soft: #dcebe9;
+      --modern-accent: #1b4d5c; --modern-accent-light: #7fa6a8;
+      --modern-dark: #0e2a3a; --modern-bg: #f1efe8;
+      --warm-accent: #1b4d5c; --warm-accent-light: #7fa6a8;
+    }
+    .btn-cta { background: var(--accent-soft); color: #0e2a3a; }
+    .btn-cta:hover { background: #eef6f5; }
+    .site-footer { background: #081720; }
+    .photo-marquee { background: #081720; }
+    .stats-bar { background: var(--modern-dark); }
   </style>
 </head>
 <body>
@@ -224,8 +236,7 @@
   <nav class="main-nav" id="mainNav">
     <a href="index.html" class="nav-logo">HomeHaven</a>
     <div class="nav-links">
-      <a href="student.html" class="nav-link">Student Rooms</a>
-      <a href="phuket.html" class="nav-link active">Phuket Villa</a>
+      <a href="index.html" class="nav-link">Home</a>
       <a href="index.html#contact" class="nav-link">Contact</a>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -464,6 +475,36 @@
     </div>
   </div>
 
+  <!-- PHOTO MARQUEE -->
+  <section class="photo-marquee" aria-label="Photo gallery">
+    <div class="marquee-track">
+      <div class="marquee-set">
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/Pool_jyj96w.jpg" alt="Villa infinity pool" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/B21_016_hq6j8l.jpg" alt="Villa living space" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/IMG_3036_w53472.jpg" alt="Villa interior" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/Sunset_5_es90xj.jpg" alt="Sunset over the Andaman Sea" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/IMG_2953_r1592f.jpg" alt="Villa bedroom" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/148686EC-40CD-46A1-A7B8-25753C9300AB_kpv21v.jpg" alt="The Heights Villa" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/B21_035_vsjcib.jpg" alt="View from the villa" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/Pool_at_night_lqd35w.jpg" alt="The pool at night" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/B21_070_kd32f7.jpg" alt="Villa terrace" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/B21_061_lis3tp.jpg" alt="Inside the villa" loading="lazy"/>
+      </div>
+      <div class="marquee-set" aria-hidden="true">
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/Pool_jyj96w.jpg" alt="Villa infinity pool" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/B21_016_hq6j8l.jpg" alt="Villa living space" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/IMG_3036_w53472.jpg" alt="Villa interior" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/Sunset_5_es90xj.jpg" alt="Sunset over the Andaman Sea" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/IMG_2953_r1592f.jpg" alt="Villa bedroom" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/148686EC-40CD-46A1-A7B8-25753C9300AB_kpv21v.jpg" alt="The Heights Villa" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/B21_035_vsjcib.jpg" alt="View from the villa" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/Pool_at_night_lqd35w.jpg" alt="The pool at night" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/B21_070_kd32f7.jpg" alt="Villa terrace" loading="lazy"/>
+        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/B21_061_lis3tp.jpg" alt="Inside the villa" loading="lazy"/>
+      </div>
+    </div>
+  </section>
+
   <section class="cta-band">
     <div class="container reveal">
       <h2>Ready to escape?</h2>
@@ -476,8 +517,7 @@
     <div class="container footer-inner">
       <p class="footer-logo">HomeHaven</p>
       <nav class="footer-nav">
-        <a href="student.html">Student Rooms</a>
-        <a href="phuket.html">Phuket Villa</a>
+        <a href="index.html">Home</a>
         <a href="index.html#contact">Contact</a>
       </nav>
       <p class="footer-legal">© 2025 HomeHaven Properties</p>
@@ -667,5 +707,6 @@
     if (e.key === 'Escape')     closeLb();
   });
   </script>
+  <script src="js/motion.js" defer></script>
 </body>
 </html>

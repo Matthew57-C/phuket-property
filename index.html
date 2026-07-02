@@ -5,30 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>HomeHaven — Private Stays · Phuket Villa & Cambridge Rooms</title>
   <meta name="description" content="HomeHaven Properties — a private luxury villa above Kata Beach, Phuket, and considered student rooms in Cambridge. Short stays, looked after properly."/>
-  <meta name="theme-color" content="#0e0b07"/>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230e0b07'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' fill='%23d4b36a' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E"/>
+  <meta name="theme-color" content="#0e0d0b"/>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230e0d0b'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' fill='%23c9c3b4' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E"/>
   <link rel="stylesheet" href="css/main.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* Homepage — neutral stone monochrome, minimal */
+    body {
+      --accent: #8a8676; --accent-2: #c9c3b4; --accent-soft: #efece2;
+      --warm-accent: #8a8676; --warm-accent-light: #c9c3b4;
+    }
+    .para-sky { background: linear-gradient(175deg, #0d0d0c 0%, #191815 40%, #121110 70%, #0a0a09 100%); }
+    .para-hero { background: #0a0a09; }
+    .stats-strip { background: linear-gradient(180deg, #141311, #0d0c0a); }
+    .site-footer { background: #0d0c0a; }
+  </style>
 </head>
 <body>
 
   <nav class="main-nav" id="mainNav">
     <a href="index.html" class="nav-logo">HomeHaven</a>
     <div class="nav-links">
-      <a href="student.html" class="nav-link">Student Rooms</a>
-      <a href="phuket.html" class="nav-link">Phuket Villa</a>
+      <a href="student.html" class="nav-link">Cambridge</a>
+      <a href="phuket.html" class="nav-link">Phuket</a>
       <a href="#contact" class="nav-link">Contact</a>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
   </nav>
 
-  <!-- LAYERED PARALLAX HERO (position:fixed, behind page) -->
+  <!-- FIXED PARALLAX HERO -->
   <div class="para-hero" id="paraHero">
     <div class="para-layer para-sky" aria-hidden="true"></div>
     <div class="para-layer para-bg" aria-hidden="true"></div>
-<div class="para-vignette" aria-hidden="true"></div>
+    <div class="para-vignette" aria-hidden="true"></div>
     <div class="para-content">
-      <p class="para-eyebrow">Holiday Homes &nbsp;&middot;&nbsp; Phuket Villa</p>
+      <p class="para-eyebrow">Private Stays · England &amp; Thailand</p>
       <h1 class="para-wordmark">HomeHaven</h1>
       <p class="para-tagline">From Cambridge courtyards to the Andaman Sea</p>
     </div>
@@ -37,10 +48,44 @@
       <div class="para-scroll-bar"></div>
     </div>
   </div>
-  <!-- SPACER: reserves scroll distance for the fixed hero -->
   <div class="para-spacer"></div>
-  <!-- PAGE BODY: slides over the hero as you scroll -->
+
   <div class="page-body">
+
+  <!-- STATEMENT -->
+  <section class="statement-section">
+    <div class="container">
+      <p class="statement" data-kinetic id="hhStatement">Two very different places. The same standard of care.</p>
+    </div>
+  </section>
+
+  <!-- CAMBRIDGE — its own world -->
+  <section class="prop-panel" id="cambridge">
+    <div class="prop-media img-reveal">
+      <img src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1600&q=80" alt="Student room in Cambridge" data-parallax="0.16" loading="lazy"/>
+    </div>
+    <div class="prop-scrim" aria-hidden="true"></div>
+    <div class="prop-content">
+      <span class="prop-tag">Cambridge · England</span>
+      <h2 class="prop-title">Student <em>Rooms</em></h2>
+      <p class="prop-text">Bills included, fully furnished, minutes from your college.</p>
+      <a href="student.html" class="btn btn-ghost magnetic">Explore rooms →</a>
+    </div>
+  </section>
+
+  <!-- PHUKET — its own world -->
+  <section class="prop-panel" id="phuket" style="--accent-2:#7fa6a8">
+    <div class="prop-media img-reveal">
+      <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1600,h_1000,c_fill,g_auto,q_85,e_improve:35/B21_072_d3lhr9.jpg" alt="The Heights Villa, Phuket" data-parallax="0.16" loading="lazy"/>
+    </div>
+    <div class="prop-scrim" aria-hidden="true"></div>
+    <div class="prop-content">
+      <span class="prop-tag">Kata Noi · Phuket, Thailand</span>
+      <h2 class="prop-title">The Heights <em>Villa</em></h2>
+      <p class="prop-text">A private four-bedroom retreat above the Andaman Sea.</p>
+      <a href="phuket.html" class="btn btn-ghost magnetic">View the villa →</a>
+    </div>
+  </section>
 
   <!-- STATS STRIP -->
   <div class="stats-strip">
@@ -64,62 +109,6 @@
     </div>
   </div>
 
-  <!-- SPLIT PANELS — each with its own fixed background -->
-  <section class="split-intro">
-    <a href="student.html" class="split-panel split-student">
-      <div class="split-content">
-        <span class="split-tag">Student Living</span>
-        <h2>Rooms that feel<br/><em>like home</em></h2>
-        <p>Bills included, great locations, community built in.</p>
-        <span class="btn btn-ghost">Explore Rooms →</span>
-      </div>
-    </a>
-    <a href="phuket.html" class="split-panel split-holiday">
-      <div class="split-content">
-        <span class="split-tag">Phuket, Thailand</span>
-        <h2>Escape to<br/><em>paradise</em></h2>
-        <p>A private luxury villa steps from Kata Beach.</p>
-        <span class="btn btn-ghost">View the Villa →</span>
-      </div>
-    </a>
-  </section>
-
-  <!-- WHY US -->
-  <section class="why-section">
-    <div class="container">
-      <div class="reveal" style="text-align:center">
-        <span class="section-label">Why rent with us</span>
-        <h2 class="section-title centered">Everything taken care of</h2>
-      </div>
-      <div class="features-grid">
-        <div class="feature-card reveal reveal-delay-1">
-          <span class="feature-num">01</span>
-          <svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-          <h3>Fast Response</h3>
-          <p>Enquiries answered within 24 hours, viewings arranged around you.</p>
-        </div>
-        <div class="feature-card reveal reveal-delay-2">
-          <span class="feature-num">02</span>
-          <svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6M15.5 7.5l3 3"/></svg>
-          <h3>Hassle-Free</h3>
-          <p>Clear contracts, transparent pricing, no hidden fees ever.</p>
-        </div>
-        <div class="feature-card reveal reveal-delay-3">
-          <span class="feature-num">03</span>
-          <svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          <h3>Well-Maintained</h3>
-          <p>All properties inspected regularly. Issues resolved promptly.</p>
-        </div>
-        <div class="feature-card reveal reveal-delay-4">
-          <span class="feature-num">04</span>
-          <svg class="feature-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          <h3>Great Locations</h3>
-          <p>Cambridge city centre and the shores of Phuket, Thailand.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- PARALLAX QUOTE BAND -->
   <div class="parallax-band student-band-parallax">
     <div class="band-inner reveal">
@@ -128,36 +117,6 @@
     </div>
   </div>
 
-  <!-- PHOTO MARQUEE -->
-  <section class="photo-marquee" aria-label="Photo gallery">
-    <div class="marquee-track">
-      <div class="marquee-set">
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/Pool_jyj96w.jpg" alt="Villa infinity pool" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/B21_016_hq6j8l.jpg" alt="Villa living space" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/IMG_3036_w53472.jpg" alt="Villa interior" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/Sunset_5_es90xj.jpg" alt="Sunset over the Andaman Sea" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/IMG_2953_r1592f.jpg" alt="Villa bedroom" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/148686EC-40CD-46A1-A7B8-25753C9300AB_kpv21v.jpg" alt="The Heights Villa" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/B21_035_vsjcib.jpg" alt="View from the villa" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/Pool_at_night_lqd35w.jpg" alt="The pool at night" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/B21_070_kd32f7.jpg" alt="Villa terrace" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/B21_061_lis3tp.jpg" alt="Inside the villa" loading="lazy"/>
-      </div>
-      <div class="marquee-set" aria-hidden="true">
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/Pool_jyj96w.jpg" alt="Villa infinity pool" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/B21_016_hq6j8l.jpg" alt="Villa living space" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/IMG_3036_w53472.jpg" alt="Villa interior" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/Sunset_5_es90xj.jpg" alt="Sunset over the Andaman Sea" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/IMG_2953_r1592f.jpg" alt="Villa bedroom" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/148686EC-40CD-46A1-A7B8-25753C9300AB_kpv21v.jpg" alt="The Heights Villa" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/B21_035_vsjcib.jpg" alt="View from the villa" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/Pool_at_night_lqd35w.jpg" alt="The pool at night" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/B21_070_kd32f7.jpg" alt="Villa terrace" loading="lazy"/>
-        <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_450,c_fill,g_auto,q_80,e_improve:40/B21_061_lis3tp.jpg" alt="Inside the villa" loading="lazy"/>
-      </div>
-    </div>
-  </section>
-
   <!-- CONTACT -->
   <section class="contact-section" id="contact">
     <div class="container">
@@ -165,7 +124,7 @@
         <div class="reveal">
           <span class="section-label">Get in touch</span>
           <h2 class="section-title" style="margin-bottom:1rem">Let's talk</h2>
-          <p class="contact-text" style="color:var(--warm-muted);font-size:0.96rem;margin-bottom:2rem">Interested in a property or have a question? Drop us a message.</p>
+          <p class="contact-text" style="color:var(--warm-muted);font-size:0.96rem;margin-bottom:2rem">Interested in either property or have a question? Drop us a message.</p>
           <p class="contact-detail">📧 <a href="mailto:suziezhu7717@gmail.com" id="hhEmail">suziezhu7717@gmail.com</a></p>
           <p class="contact-detail">📞 <a href="tel:07762219808" id="hhPhone">07762219808</a></p>
         </div>
@@ -174,12 +133,12 @@
           <input type="email" name="email" placeholder="Email address" required/>
           <select name="interest">
             <option value="">Interested in…</option>
-            <option>Student rooms</option>
+            <option>Cambridge student rooms</option>
             <option>Phuket villa</option>
             <option>General enquiry</option>
           </select>
           <textarea name="message" rows="4" placeholder="Your message"></textarea>
-          <button type="submit" class="btn-submit">Send message</button>
+          <button type="submit" class="btn-submit magnetic">Send message</button>
           <p class="form-success" id="formSuccess"></p>
         </form>
       </div>
@@ -190,8 +149,8 @@
     <div class="container footer-inner">
       <p class="footer-logo">HomeHaven</p>
       <nav class="footer-nav">
-        <a href="student.html">Student Rooms</a>
-        <a href="phuket.html">Phuket Villa</a>
+        <a href="student.html">Cambridge</a>
+        <a href="phuket.html">Phuket</a>
         <a href="#contact">Contact</a>
         <a href="admin/">Admin</a>
       </nav>
@@ -209,45 +168,35 @@
   <script src="js/properties.js"></script>
   <script src="js/content.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/motion.js" defer></script>
   <script>
   // ── CONFIG LOADER (config/index.json) ─────────────────────────────────────
   fetch('config/index.json', { cache: 'no-cache' }).then(r => r.json()).then(cfg => {
-    const set = (sel, val) => { const el = document.querySelector(sel); if (el) el.textContent = val; };
+    const set = (sel, val) => { const el = document.querySelector(sel); if (el && val) el.textContent = val; };
 
-    // Hero eyebrow
     set('.para-eyebrow', cfg.hero.eyebrow);
-    if (cfg.hero.tagline) set('.para-tagline', cfg.hero.tagline);
+    set('.para-tagline', cfg.hero.tagline);
 
-    // Split panels
-    document.querySelectorAll('.split-panel').forEach((panel, i) => {
-      const p = cfg.splitPanels[i]; if (!p) return;
-      set.call(null, '', ''); // no-op; use direct queries below
-      const tag = panel.querySelector('.split-tag');
-      const h2  = panel.querySelector('h2');
-      const txt = panel.querySelector('p');
+    if (cfg.statement) {
+      const st = document.getElementById('hhStatement');
+      if (st) { st.textContent = cfg.statement; if (window.__kinetic) window.__kinetic(); }
+    }
+
+    document.querySelectorAll('.prop-panel').forEach((panel, i) => {
+      const p = (cfg.panels || [])[i]; if (!p) return;
+      const tag = panel.querySelector('.prop-tag');
+      const h2  = panel.querySelector('.prop-title');
+      const txt = panel.querySelector('.prop-text');
       const btn = panel.querySelector('.btn');
       if (tag) tag.textContent = p.tag;
-      if (h2)  h2.innerHTML = p.headingLine1 + '<br/><em>' + p.headingLine2 + '</em>';
+      if (h2)  h2.innerHTML = p.titleLine1 + ' <em>' + p.titleLine2 + '</em>';
       if (txt) txt.textContent = p.text;
       if (btn) btn.textContent = p.button;
     });
 
-    // Why us
-    set('.why-section .section-label', cfg.whyUs.sectionLabel);
-    set('.why-section .section-title', cfg.whyUs.heading);
-    document.querySelectorAll('.feature-card').forEach((card, i) => {
-      const item = cfg.whyUs.cards[i]; if (!item) return;
-      card.querySelector('.feature-num').textContent = item.num;
-      card.querySelector('h3').textContent = item.heading;
-      card.querySelector('p').textContent = item.text;
-    });
-
-    // Contact section
     set('.contact-section .section-label', cfg.contact.sectionLabel);
     set('.contact-section .section-title', cfg.contact.heading);
     set('.contact-text', cfg.contact.text);
-
-    // Footer
     set('.footer-legal', cfg.footer.legal);
   }).catch(() => {});
   </script>
