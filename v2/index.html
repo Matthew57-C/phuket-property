@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HomeHaven — Private Stays · v2</title>
+  <meta name="description" content="HomeHaven — a student house in Cambridge and a private villa above Kata Noi, Phuket. Two places, one standard of care."/>
+  <meta name="theme-color" content="#0f0f10"/>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230f0f10'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' fill='%23e9e7e2' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E"/>
+  <link rel="preload" as="image" href="https://res.cloudinary.com/dgioaobur/image/upload/w_2200,h_2200,c_fill,g_center,q_85,e_improve:40,e_vibrance:15/Boat_photo_xyisib.jpg" fetchpriority="high"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root { --bg:#e9e7e2; --ink:#0f0f10; --accent:#ff4b1f; --sea:#7fa6a8; }
+    html { background: var(--bg); }
+    html.lenis, html.lenis body { height: auto; }
+    .lenis.lenis-smooth { scroll-behavior: auto !important; }
+    body { font-family:'Space Grotesk',sans-serif; color:var(--ink); background:var(--bg); overflow-x:hidden; }
+    .serif { font-family:'Cormorant Garamond',serif; }
+    ::selection { background:var(--accent); color:#fff; }
+    a:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+    @media (pointer:fine){ body{cursor:none;} a,button{cursor:none;} }
+
+    /* ── Preloader ── */
+    #preloader{ position:fixed; inset:0; z-index:100; background:var(--ink); color:var(--bg);
+      display:flex; flex-direction:column; justify-content:space-between; padding:4vw; }
+    #preName{ font-size:clamp(2.4rem,9vw,7rem); font-weight:500; letter-spacing:-.03em; line-height:1; overflow:hidden; }
+    #preName span{ display:inline-block; transform:translateY(110%); }
+    #preloader .count{ font-size:clamp(4rem,14vw,11rem); line-height:.9; font-weight:300; align-self:flex-end; }
+
+    /* ── Fixed chrome ── */
+    .cursor-dot,.cursor-ring{ position:fixed; top:0; left:0; z-index:90; pointer-events:none; border-radius:50%; transform:translate(-50%,-50%); mix-blend-mode:difference; }
+    .cursor-dot{ width:8px; height:8px; background:#fff; }
+    .cursor-ring{ width:36px; height:36px; border:1.5px solid #fff; transition:width .3s,height .3s,opacity .3s; }
+    body.cur-grow .cursor-ring{ width:76px; height:76px; opacity:.9; }
+    @media (pointer:coarse){ .cursor-dot,.cursor-ring{ display:none; } }
+    .grain{ position:fixed; inset:-50%; width:200%; height:200%; z-index:80; pointer-events:none; opacity:.05;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+      animation:grain .9s steps(4) infinite; }
+    @keyframes grain{ 0%{transform:translate(0,0)} 25%{transform:translate(-2%,3%)} 50%{transform:translate(3%,-2%)} 75%{transform:translate(-3%,-3%)} 100%{transform:translate(0,0)} }
+    #progressBar{ position:fixed; top:0; left:0; height:2px; width:0; background:var(--accent); z-index:95; }
+    #mainNav{ transition:transform .45s cubic-bezier(.22,1,.36,1); }
+    #mainNav.hidden-nav{ transform:translateY(-110%); }
+    .navlink{ position:relative; }
+    .navlink::after{ content:''; position:absolute; left:0; bottom:-4px; height:1px; width:100%; background:currentColor;
+      transform:scaleX(0); transform-origin:right; transition:transform .4s cubic-bezier(.22,1,.36,1); }
+    .navlink:hover::after{ transform:scaleX(1); transform-origin:left; }
+
+    /* ── Hero dive ── */
+    #hero{ height:100vh; overflow:hidden; position:relative; background:var(--ink); }
+    #heroImgWrap{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+    #heroFrame{ position:relative; width:52vw; height:64vh; min-width:320px; will-change:transform,width,height; }
+    #heroImg,#heroImg2{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:6px; will-change:transform; }
+    #heroImg{ transform-origin:50% 44%; }
+    #heroImg2{ opacity:0; transform:scale(1.35); transform-origin:50% 60%; }
+    .frame-label{ position:absolute; font-size:.62rem; letter-spacing:.28em; text-transform:uppercase; color:rgba(255,255,255,.65); white-space:nowrap; }
+    #fl1{ top:-1.6rem; left:0; } #fl2{ bottom:-1.6rem; right:0; }
+    #heroTitleTop,#heroTitleBot{ position:absolute; left:50%; transform:translateX(-50%); z-index:3;
+      font-weight:500; letter-spacing:-.02em; color:#fff; mix-blend-mode:difference;
+      font-size:clamp(3.4rem,13vw,12rem); line-height:.85; white-space:nowrap; }
+    #heroTitleTop{ top:11vh; } #heroTitleBot{ bottom:9vh; }
+    .heroCap{ position:absolute; z-index:4; color:#fff; opacity:0; max-width:34ch; font-size:.9rem; line-height:1.6; }
+    #heroCap1{ left:6vw; bottom:18vh; } #heroCap2{ right:6vw; top:20vh; text-align:right; } #heroCap3{ left:50%; top:50%; transform:translate(-50%,-50%); text-align:center; }
+    #heroCap3 .serif{ font-size:clamp(2rem,5vw,4rem); font-style:italic; }
+    #heroScroll{ position:absolute; bottom:3vh; left:50%; transform:translateX(-50%); z-index:4; color:rgba(255,255,255,.6);
+      font-size:.68rem; letter-spacing:.3em; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:.5rem; }
+    #heroScroll::after{ content:''; width:1px; height:34px; background:linear-gradient(to bottom,rgba(255,255,255,.6),transparent); }
+
+    /* ── Scroll-drawn line ── */
+    #journeyWrap{ position:relative; }
+    #scrollLine{ position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; }
+    #scrollLine path{ fill:none; stroke:var(--accent); stroke-width:2.5; }
+
+    /* Statement scrub-highlight */
+    .scrub-words span{ opacity:.12; transition:none; }
+
+    /* ── Marquee ── */
+    .marq{ overflow:hidden; border-top:1px solid rgba(15,15,16,.15); border-bottom:1px solid rgba(15,15,16,.15); }
+    .marq-track{ display:flex; width:max-content; animation:marq 32s linear infinite; }
+    .marq span{ font-size:clamp(2.2rem,6vw,5rem); font-weight:300; letter-spacing:-.02em; padding:1.2rem 2.5rem 1.4rem 0; white-space:nowrap; }
+    .marq em{ font-family:'Cormorant Garamond',serif; font-style:italic; color:var(--accent); }
+    @keyframes marq{ to{ transform:translateX(-50%);} }
+
+    /* ── Horizontal gallery ── */
+    #gallery{ overflow:hidden; background:var(--ink); color:var(--bg); }
+    .gal-card{ flex:0 0 auto; position:relative; }
+    .gal-card img{ width:100%; height:100%; object-fit:cover; transition:transform .8s cubic-bezier(.22,1,.36,1); }
+    .gal-card:hover img{ transform:scale(1.045); }
+    .gal-card figcaption{ position:absolute; left:0; bottom:-2rem; font-size:.66rem; letter-spacing:.24em; text-transform:uppercase; opacity:.55; }
+    .gal-num{ position:absolute; top:-2.4rem; right:0; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.1rem; opacity:.5; }
+
+    /* ── World cards ── */
+    .world{ position:sticky; top:0; height:100vh; overflow:hidden; display:flex; align-items:flex-end; }
+    .world img.bg{ position:absolute; inset:0; width:100%; height:112%; top:-6%; object-fit:cover; will-change:transform; }
+    .world .scrim{ position:absolute; inset:0; background:linear-gradient(to top,rgba(8,9,10,.82),rgba(8,9,10,.05) 55%); }
+    .world .num{ position:absolute; top:6vh; right:5vw; font-family:'Cormorant Garamond',serif; font-size:clamp(7rem,20vw,17rem);
+      line-height:1; color:transparent; -webkit-text-stroke:1.5px rgba(255,255,255,.3); z-index:2; }
+    .localtime{ font-variant-numeric:tabular-nums; letter-spacing:.18em; }
+    .wbtn{ display:inline-flex; align-items:center; gap:.6rem; border:1px solid rgba(255,255,255,.5); border-radius:999px;
+      padding:.9rem 1.8rem; color:#fff; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; transition:background .3s,border-color .3s,gap .3s; }
+    .wbtn:hover{ background:rgba(255,255,255,.14); border-color:#fff; gap:1rem; }
+
+    /* ── Footer ── */
+    #footer{ background:var(--ink); color:var(--bg); }
+    #sayHello{ font-size:clamp(3.5rem,12vw,10.5rem); line-height:.9; font-weight:500; letter-spacing:-.03em; display:inline-block; will-change:transform; }
+    #sayHello em{ font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; color:var(--accent); }
+
+    @media (prefers-reduced-motion:reduce){
+      .grain,.marq-track{ animation:none; }
+      body{ cursor:auto; } .cursor-dot,.cursor-ring{ display:none; }
+      .scrub-words span{ opacity:1; }
+      #preName span{ transform:none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PRELOADER -->
+  <div id="preloader">
+    <div>
+      <p class="text-[0.62rem] tracking-[0.35em] uppercase opacity-50 mb-6">Cambridge · Kata Noi</p>
+      <h1 id="preName"><span>HomeHaven</span></h1>
+    </div>
+    <div class="count">0</div>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div id="progressBar" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav id="mainNav" class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-[4vw] py-6 mix-blend-difference text-white">
+    <a href="index.html" class="text-lg font-medium tracking-tight" data-hover>HomeHaven<sup class="text-[0.6rem] ml-1" style="color:#ff4b1f">v2</sup></a>
+    <div class="flex gap-8 text-[0.72rem] tracking-[0.2em] uppercase">
+      <a href="../student.html" data-hover class="navlink opacity-80 hover:opacity-100 transition-opacity">Cambridge</a>
+      <a href="../phuket.html" data-hover class="navlink opacity-80 hover:opacity-100 transition-opacity">Phuket</a>
+      <a href="#contact" data-hover class="navlink opacity-80 hover:opacity-100 transition-opacity">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO — two-stage dive: the bay, then the villa at dusk -->
+  <section id="hero">
+    <h1 id="heroTitleTop">HOMEHAVEN</h1>
+    <div id="heroImgWrap">
+      <div id="heroFrame">
+        <span class="frame-label" id="fl1">07°48′ S — Kata Noi Bay</span>
+        <img id="heroImg" src="https://res.cloudinary.com/dgioaobur/image/upload/w_2200,h_2200,c_fill,g_center,q_85,e_improve:40,e_vibrance:15/Boat_photo_xyisib.jpg" alt="Longtail boat in the bay below the villa" fetchpriority="high"/>
+        <img id="heroImg2" src="https://res.cloudinary.com/dgioaobur/image/upload/w_1800,h_1400,c_fill,g_auto,q_85,e_improve:30/Pool_at_night_lqd35w.jpg" alt="The villa pool at dusk" loading="lazy"/>
+        <span class="frame-label" id="fl2">fig. 01 — the journey up</span>
+      </div>
+    </div>
+    <h2 id="heroTitleBot" class="serif" style="font-style:italic;font-weight:300">private stays</h2>
+    <p class="heroCap" id="heroCap1">A longtail boat in the bay below the villa.<br/>Keep scrolling — we'll take you up the hill.</p>
+    <p class="heroCap" id="heroCap2">Past the beach, through the palms,<br/>four bedrooms above the Andaman Sea.</p>
+    <p class="heroCap" id="heroCap3"><span class="serif">Arrive at The Heights</span><br/><span class="text-xs tracking-[0.3em] uppercase opacity-70">dusk, pool-side</span></p>
+    <p id="heroScroll">Scroll to dive in</p>
+  </section>
+
+  <!-- JOURNEY -->
+  <div id="journeyWrap">
+    <svg id="scrollLine" viewBox="0 0 1000 2400" preserveAspectRatio="none" aria-hidden="true">
+      <path id="linePath" d="M 500 0 C 500 200, 180 260, 180 460 S 820 700, 820 940 S 200 1220, 200 1480 S 780 1800, 500 2020 C 380 2120, 500 2280, 500 2400" />
+    </svg>
+
+    <section class="relative z-[2] py-[16vh]">
+      <div class="max-w-3xl mx-auto px-6 text-center">
+        <p class="text-[0.7rem] tracking-[0.35em] uppercase opacity-50 mb-8" data-fade>The idea</p>
+        <p class="serif text-3xl md:text-5xl leading-snug scrub-words" id="ideaText">Two very different places, looked after with the same obsession — a student room in the middle of Cambridge, and a villa hanging above the Andaman Sea. No portfolio padding, no outsourcing. Just two places we know completely.</p>
+      </div>
+    </section>
+
+    <div class="marq relative z-[2] bg-[var(--bg)]" aria-hidden="true">
+      <div class="marq-track">
+        <span>Cambridge <em>England</em> — Kata Noi <em>Thailand</em> — Private Stays — </span>
+        <span>Cambridge <em>England</em> — Kata Noi <em>Thailand</em> — Private Stays — </span>
+      </div>
+    </div>
+
+    <section class="relative z-[2] py-[14vh]">
+      <div class="max-w-5xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
+        <div data-fade><p class="stat text-5xl md:text-6xl font-light" data-target="50">0</p><p class="text-[0.65rem] tracking-[0.25em] uppercase opacity-50 mt-2">Properties managed</p></div>
+        <div data-fade><p class="stat text-5xl md:text-6xl font-light" data-target="98">0</p><p class="text-[0.65rem] tracking-[0.25em] uppercase opacity-50 mt-2">% satisfaction</p></div>
+        <div data-fade><p class="stat text-5xl md:text-6xl font-light" data-target="10">0</p><p class="text-[0.65rem] tracking-[0.25em] uppercase opacity-50 mt-2">Years experience</p></div>
+        <div data-fade><p class="stat text-5xl md:text-6xl font-light" data-target="24">0</p><p class="text-[0.65rem] tracking-[0.25em] uppercase opacity-50 mt-2">Hr response</p></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- HORIZONTAL GALLERY — postcards from the villa -->
+  <section id="gallery" class="relative">
+    <div class="px-[6vw] pt-[12vh] pb-4 flex items-end justify-between">
+      <h2 class="serif text-4xl md:text-6xl font-light">Postcards <em class="italic" style="color:#7fa6a8">from Phuket</em></h2>
+      <p class="text-[0.65rem] tracking-[0.3em] uppercase opacity-50 pb-2 hidden md:block">Drag nothing — just scroll</p>
+    </div>
+    <div id="galPin">
+      <div id="galTrack" class="flex items-center gap-[5vw] px-[8vw] h-[74vh] w-max">
+        <figure class="gal-card w-[64vw] md:w-[34vw] h-[52vh] md:h-[60vh]"><span class="gal-num">i.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1000,h_1300,c_fill,g_auto,q_82,e_improve:35/Swimming_Pool_kq6nuw.jpg" alt="The pool" loading="lazy"/><figcaption>The pool, mid-afternoon</figcaption></figure>
+        <figure class="gal-card w-[70vw] md:w-[44vw] h-[44vh] md:h-[52vh]"><span class="gal-num">ii.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1200,h_800,c_fill,g_auto,q_82,e_improve:35/B21_016_hq6j8l.jpg" alt="Living space" loading="lazy"/><figcaption>Living, opened right up</figcaption></figure>
+        <figure class="gal-card w-[60vw] md:w-[30vw] h-[56vh] md:h-[64vh]"><span class="gal-num">iii.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1000,h_1400,c_fill,g_auto,q_82,e_improve:35/IMG-2111_zocig9.jpg" alt="Villa detail" loading="lazy"/><figcaption>Details, everywhere</figcaption></figure>
+        <figure class="gal-card w-[70vw] md:w-[42vw] h-[46vh] md:h-[54vh]"><span class="gal-num">iv.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1200,h_800,c_fill,g_auto,q_82,e_improve:35/IMG_2953_r1592f.jpg" alt="Bedroom" loading="lazy"/><figcaption>Beds worth the jetlag</figcaption></figure>
+        <figure class="gal-card w-[64vw] md:w-[36vw] h-[52vh] md:h-[62vh]"><span class="gal-num">v.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1000,h_1300,c_fill,g_auto,q_82,e_improve:40,e_vibrance:20/Sunset_7_taetjn.jpg" alt="Sunset" loading="lazy"/><figcaption>The nightly show</figcaption></figure>
+        <figure class="gal-card w-[70vw] md:w-[44vw] h-[44vh] md:h-[52vh]"><span class="gal-num">vi.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1200,h_800,c_fill,g_auto,q_82,e_improve:35/B21_070_kd32f7.jpg" alt="Terrace" loading="lazy"/><figcaption>Terrace, all yours</figcaption></figure>
+      </div>
+    </div>
+    <div class="px-[6vw] pb-[10vh] pt-8"><p class="text-[0.65rem] tracking-[0.3em] uppercase opacity-40">06 frames · Kata Noi, Phuket</p></div>
+  </section>
+
+  <!-- WORLDS -->
+  <div id="worlds" class="relative">
+    <section class="world" id="worldCam">
+      <img class="bg" src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1800&q=80" alt="Cambridge student room"/>
+      <div class="scrim"></div>
+      <span class="num">01</span>
+      <div class="relative z-[2] p-[6vw] text-white max-w-2xl">
+        <p class="text-[0.7rem] tracking-[0.3em] uppercase opacity-70 mb-2">Cambridge · England</p>
+        <p class="localtime text-[0.7rem] uppercase opacity-50 mb-5" data-tz="Europe/London">--:--:--</p>
+        <h2 class="serif text-6xl md:text-8xl font-light leading-none mb-5">Student <em class="italic">Rooms</em></h2>
+        <p class="opacity-80 mb-8 max-w-md">Bills included, fully furnished, minutes from your college. Term-time homes, not just rooms.</p>
+        <a class="wbtn" href="../student.html" data-hover>Explore rooms <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+      </div>
+    </section>
+    <section class="world" id="worldPhu">
+      <img class="bg" src="https://res.cloudinary.com/dgioaobur/image/upload/w_1800,h_1100,c_fill,g_auto,q_85,e_improve:35/B21_072_d3lhr9.jpg" alt="The Heights Villa, Phuket"/>
+      <div class="scrim" style="background:linear-gradient(to top,rgba(8,27,36,.85),rgba(8,27,36,.08) 55%)"></div>
+      <span class="num" style="-webkit-text-stroke-color:rgba(127,166,168,.45)">02</span>
+      <div class="relative z-[2] p-[6vw] text-white max-w-2xl">
+        <p class="text-[0.7rem] tracking-[0.3em] uppercase mb-2" style="color:#9fc2c3">Kata Noi · Phuket, Thailand</p>
+        <p class="localtime text-[0.7rem] uppercase opacity-50 mb-5" data-tz="Asia/Bangkok">--:--:--</p>
+        <h2 class="serif text-6xl md:text-8xl font-light leading-none mb-5">The Heights <em class="italic">Villa</em></h2>
+        <p class="opacity-80 mb-8 max-w-md">A private four-bedroom retreat above the Andaman Sea. Chef-ready kitchen, infinity pool, that view.</p>
+        <a class="wbtn" href="../phuket.html" data-hover style="border-color:rgba(159,194,195,.6)">View the villa <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+      </div>
+    </section>
+  </div>
+
+  <!-- FOOTER -->
+  <footer id="footer" class="relative">
+    <div id="contact" class="px-[6vw] pt-[16vh] pb-[10vh]">
+      <p class="text-[0.7rem] tracking-[0.35em] uppercase opacity-50 mb-8" data-fade>Enquiries</p>
+      <a id="sayHello" href="mailto:suziezhu7717@gmail.com" data-hover data-magnet class="block w-max" data-fade>Say <em>hello</em></a>
+      <div class="flex flex-wrap justify-between items-end gap-6 mt-[10vh] text-sm opacity-70">
+        <div>
+          <p><a href="mailto:suziezhu7717@gmail.com" data-hover>suziezhu7717@gmail.com</a></p>
+          <p><a href="tel:07762219808" data-hover>07762 219808</a></p>
+        </div>
+        <div class="flex gap-6 text-[0.7rem] tracking-[0.2em] uppercase">
+          <a href="../student.html" data-hover class="navlink">Cambridge</a>
+          <a href="../phuket.html" data-hover class="navlink">Phuket</a>
+          <a href="../index.html" data-hover class="navlink">Classic site</a>
+        </div>
+        <p class="text-[0.7rem] opacity-60">© 2025 HomeHaven Properties</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+  (function () {
+    var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (window.lucide) lucide.createIcons();
+
+    // Live local time for each world — the two places really are apart
+    function tickClocks() {
+      document.querySelectorAll('.localtime').forEach(function (el) {
+        try {
+          el.textContent = new Intl.DateTimeFormat('en-GB', {
+            hour: '2-digit', minute: '2-digit', second: '2-digit', timeZone: el.dataset.tz
+          }).format(new Date()) + ' · local time';
+        } catch (e) {}
+      });
+    }
+    tickClocks(); setInterval(tickClocks, 1000);
+
+    if (!window.gsap) { var p = document.getElementById('preloader'); if (p) p.style.display = 'none'; return; }
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Smooth scroll
+    var lenis = null;
+    if (window.Lenis && !reduced) {
+      lenis = new Lenis({ lerp: 0.1 });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+      gsap.ticker.lagSmoothing(0);
+      lenis.stop();
+    }
+
+    // ── Preloader ──
+    var pre = document.getElementById('preloader');
+    gsap.to('#preName span', { y: 0, yPercent: -0, duration: 0.9, ease: 'power3.out', delay: 0.1, startAt: { yPercent: 110 } });
+    var n = { v: 0 };
+    gsap.to(n, {
+      v: 100, duration: reduced ? 0 : 1.5, ease: 'power2.inOut',
+      onUpdate: function () { pre.querySelector('.count').textContent = Math.round(n.v); },
+      onComplete: function () {
+        gsap.to(pre, { yPercent: -100, duration: 0.9, ease: 'power4.inOut',
+          onComplete: function () { pre.style.display = 'none'; if (lenis) lenis.start(); } });
+        gsap.from('#heroTitleTop, #heroTitleBot', { yPercent: 60, opacity: 0, duration: 1.1, stagger: 0.12, ease: 'power3.out', delay: 0.35 });
+        gsap.from('#heroFrame', { scale: 0.85, opacity: 0, duration: 1.3, ease: 'power3.out', delay: 0.25 });
+        gsap.from('.frame-label', { opacity: 0, duration: 1, delay: 1 });
+      }
+    });
+
+    if (reduced) return;
+
+    // ── Scroll progress + hide-on-scroll nav ──
+    var nav = document.getElementById('mainNav'), lastY = 0;
+    ScrollTrigger.create({
+      onUpdate: function (self) {
+        document.getElementById('progressBar').style.width = (self.progress * 100) + '%';
+        var y = self.scroll();
+        nav.classList.toggle('hidden-nav', y > lastY && y > window.innerHeight * 0.8);
+        lastY = y;
+      },
+      start: 0, end: 'max'
+    });
+
+    // ── HERO: two-stage dive (bay → night pool) ──
+    var tl = gsap.timeline({
+      scrollTrigger: { trigger: '#hero', start: 'top top', end: '+=340%', scrub: 0.6, pin: true, anticipatePin: 1 }
+    });
+    tl.to('#heroFrame', { width: '100vw', height: '100vh', ease: 'power1.inOut', duration: 0.22 }, 0)
+      .to('#heroImg, #heroImg2', { borderRadius: 0, duration: 0.22 }, 0)
+      .to('#heroTitleTop', { yPercent: -190, ease: 'none', duration: 0.45 }, 0)
+      .to('#heroTitleBot', { yPercent: 230, ease: 'none', duration: 0.45 }, 0)
+      .to('#heroScroll, .frame-label', { opacity: 0, duration: 0.06 }, 0)
+      .to('#heroCap1', { opacity: 1, duration: 0.08 }, 0.24)
+      .to('#heroCap1', { opacity: 0, duration: 0.08 }, 0.42)
+      .to('#heroImg', { scale: 3.1, xPercent: -5, yPercent: 12, ease: 'power1.in', duration: 0.5 }, 0.24)
+      .to('#heroCap2', { opacity: 1, duration: 0.08 }, 0.5)
+      .to('#heroCap2', { opacity: 0, duration: 0.07 }, 0.66)
+      // stage two: fade through to the villa pool at dusk, still moving
+      .to('#heroImg2', { opacity: 1, duration: 0.14 }, 0.68)
+      .to('#heroImg2', { scale: 1, ease: 'power2.out', duration: 0.3 }, 0.68)
+      .to('#heroCap3', { opacity: 1, duration: 0.08 }, 0.84)
+      .to('#heroCap3', { opacity: 0, duration: 0.06 }, 0.97);
+
+    // ── Scroll-drawn line ──
+    var path = document.getElementById('linePath');
+    if (path) {
+      var len = path.getTotalLength();
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = len;
+      gsap.to(path, { strokeDashoffset: 0, ease: 'none',
+        scrollTrigger: { trigger: '#journeyWrap', start: 'top 70%', end: 'bottom 60%', scrub: 0.5 } });
+    }
+
+    // ── Statement: word-by-word scrub highlight ──
+    var idea = document.getElementById('ideaText');
+    if (idea) {
+      idea.innerHTML = idea.textContent.trim().split(/\s+/).map(function (w) { return '<span>' + w + '</span>'; }).join(' ');
+      gsap.to(idea.querySelectorAll('span'), { opacity: 1, stagger: 0.06, ease: 'none',
+        scrollTrigger: { trigger: idea, start: 'top 80%', end: 'bottom 45%', scrub: 0.4 } });
+    }
+
+    // ── Fades + counters ──
+    gsap.utils.toArray('[data-fade]').forEach(function (el) {
+      gsap.from(el, { y: 36, opacity: 0, duration: 0.9, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 85%' } });
+    });
+    gsap.utils.toArray('.stat').forEach(function (el) {
+      gsap.fromTo(el, { textContent: 0 }, { textContent: +el.dataset.target, duration: 1.6, ease: 'power1.out',
+        snap: { textContent: 1 }, scrollTrigger: { trigger: el, start: 'top 85%' } });
+    });
+
+    // ── Horizontal gallery ──
+    var track = document.getElementById('galTrack');
+    if (track) {
+      var dist = function () { return track.scrollWidth - window.innerWidth; };
+      gsap.to(track, { x: function () { return -dist(); }, ease: 'none',
+        scrollTrigger: { trigger: '#galPin', start: 'top top', end: function () { return '+=' + dist(); },
+          scrub: 0.6, pin: true, anticipatePin: 1, invalidateOnRefresh: true } });
+    }
+
+    // ── World cards ──
+    gsap.utils.toArray('.world').forEach(function (sec, i, arr) {
+      gsap.fromTo(sec.querySelector('img.bg'), { yPercent: -6 }, { yPercent: 6, ease: 'none',
+        scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: true } });
+      if (i < arr.length - 1) {
+        gsap.to(sec, { scale: 0.94, opacity: 0.65, ease: 'none',
+          scrollTrigger: { trigger: arr[i + 1], start: 'top bottom', end: 'top top', scrub: true } });
+      }
+    });
+
+    // ── Magnetic "Say hello" ──
+    document.querySelectorAll('[data-magnet]').forEach(function (el) {
+      el.addEventListener('mousemove', function (e) {
+        var r = el.getBoundingClientRect();
+        gsap.to(el, { x: (e.clientX - r.left - r.width / 2) * 0.15, y: (e.clientY - r.top - r.height / 2) * 0.25, duration: 0.4, ease: 'power2.out' });
+      });
+      el.addEventListener('mouseleave', function () { gsap.to(el, { x: 0, y: 0, duration: 0.5, ease: 'elastic.out(1,0.5)' }); });
+    });
+
+    // ── Custom cursor ──
+    if (matchMedia('(pointer: fine)').matches) {
+      var dot = document.createElement('div'); dot.className = 'cursor-dot';
+      var ring = document.createElement('div'); ring.className = 'cursor-ring';
+      document.body.appendChild(dot); document.body.appendChild(ring);
+      var mx = -100, my = -100, rx = -100, ry = -100;
+      document.addEventListener('mousemove', function (e) { mx = e.clientX; my = e.clientY; }, { passive: true });
+      gsap.ticker.add(function () {
+        rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+        dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
+        ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
+      });
+      document.addEventListener('mouseover', function (e) {
+        document.body.classList.toggle('cur-grow', !!e.target.closest('a, button, [data-hover]'));
+      }, { passive: true });
+    }
+  })();
+  </script>
+</body>
+</html>
