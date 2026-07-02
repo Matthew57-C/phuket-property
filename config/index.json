@@ -1,40 +1,32 @@
 {
   "hero": {
-    "eyebrow": "Student Rooms · Phuket Villa"
+    "eyebrow": "Private Stays · England & Thailand",
+    "tagline": "From Cambridge courtyards to the Andaman Sea"
   },
 
-  "splitPanels": [
+  "statement": "Two very different places. The same standard of care.",
+
+  "panels": [
     {
-      "tag": "Student Living",
-      "headingLine1": "Rooms that feel",
-      "headingLine2": "like home",
-      "text": "Bills included, great locations, community built in.",
-      "button": "Explore Rooms →"
+      "tag": "Cambridge · England",
+      "titleLine1": "Student",
+      "titleLine2": "Rooms",
+      "text": "Bills included, fully furnished, minutes from your college.",
+      "button": "Explore rooms →"
     },
     {
-      "tag": "Phuket, Thailand",
-      "headingLine1": "Escape to",
-      "headingLine2": "paradise",
-      "text": "A private luxury villa steps from Kata Beach.",
-      "button": "View the Villa →"
+      "tag": "Kata Noi · Phuket, Thailand",
+      "titleLine1": "The Heights",
+      "titleLine2": "Villa",
+      "text": "A private four-bedroom retreat above the Andaman Sea.",
+      "button": "View the villa →"
     }
   ],
-
-  "whyUs": {
-    "sectionLabel": "Why rent with us",
-    "heading": "Everything taken care of",
-    "cards": [
-      { "num": "01", "heading": "Fast Response",    "text": "Enquiries answered within 24 hours, viewings arranged around you." },
-      { "num": "02", "heading": "Hassle-Free",      "text": "Clear contracts, transparent pricing, no hidden fees ever." },
-      { "num": "03", "heading": "Well-Maintained",  "text": "All properties inspected regularly. Issues resolved promptly." },
-      { "num": "04", "heading": "Great Locations",  "text": "Cambridge city centre and the shores of Phuket, Thailand." }
-    ]
-  },
 
   "contact": {
     "sectionLabel": "Get in touch",
     "heading": "Let's talk",
-    "text": "Interested in a property or have a question? Drop us a message."
+    "text": "Interested in either property or have a question? Drop us a message."
   },
 
   "footer": {

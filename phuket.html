@@ -12,10 +12,10 @@
     body .btn-warm:hover { background: var(--modern-accent-light); box-shadow: 0 8px 28px rgba(30,92,58,0.35); }
     body .section-title { color: var(--modern-dark); }
     body .section-label { color: var(--modern-muted); }
-    .main-nav.scrolled .nav-logo { color: var(--modern-dark); }
-    .main-nav.scrolled .nav-link { color: var(--modern-muted); }
-    .main-nav.scrolled .nav-link.active { color: var(--modern-accent); }
-    .main-nav.scrolled .nav-toggle span { background: var(--modern-dark); }
+    .main-nav.scrolled .nav-logo { color: var(--champagne); }
+    .main-nav.scrolled .nav-link { color: rgba(233,213,163,0.66); }
+    .main-nav.scrolled .nav-link.active { color: var(--gold-light); }
+    .main-nav.scrolled .nav-toggle span { background: var(--champagne); }
     .phuket-eyebrow { font-size: clamp(0.68rem,1.2vw,0.78rem); letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.6); display: block; margin-bottom: 1.5rem; }
 
     /* STATS BAR */
@@ -168,7 +168,7 @@
     .booking-cta:hover { background: var(--modern-accent); transform: translateY(-2px); }
     .booking-rule { border: none; border-top: 1px solid var(--modern-line); margin: 1rem 0; }
     .booking-stars { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.9rem; }
-    .booking-star-icons { color: #f59e0b; font-size: 0.85rem; letter-spacing: 0.04em; }
+    .booking-star-icons { color: var(--gold-light); font-size: 0.85rem; letter-spacing: 0.04em; }
     .booking-star-text { font-size: 0.78rem; color: var(--modern-muted); }
     .booking-badge { font-size: 0.76rem; color: var(--modern-muted); display: flex; align-items: flex-start; gap: 0.4rem; margin-bottom: 0.35rem; }
     .booking-badge::before { content: '✓'; color: var(--modern-accent); font-weight: 700; flex-shrink: 0; }
@@ -196,11 +196,11 @@
     @media(max-width:480px) { .amenity-grid { grid-template-columns: repeat(2,1fr); } }
 
     /* CTA BAND */
-    .cta-band { background: var(--modern-accent); padding: var(--space-xl) 0; text-align: center; }
+    .cta-band { background: linear-gradient(135deg, #081b24 0%, #0e2a3a 55%, #16404d 100%); padding: var(--space-xl) 0; text-align: center; }
     .cta-band h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem,5vw,3.2rem); color: #fff; margin-bottom: 0.8rem; font-weight: 300; }
     .cta-band p { color: rgba(255,255,255,0.72); margin-bottom: 2.5rem; font-size: clamp(0.9rem,1.5vw,1rem); }
-    .btn-cta { background: #fff; color: var(--modern-accent); padding: clamp(0.9rem,2vw,1.1rem) clamp(2rem,4vw,3rem); font-size: clamp(0.78rem,1.3vw,0.88rem); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; border-radius: var(--radius); transition: all var(--tr); display: inline-block; }
-    .btn-cta:hover { background: rgba(255,255,255,0.9); box-shadow: 0 8px 24px rgba(0,0,0,0.2); transform: translateY(-2px); }
+    .btn-cta { background: var(--champagne); color: #171207; padding: clamp(0.9rem,2vw,1.1rem) clamp(2rem,4vw,3rem); font-size: clamp(0.78rem,1.3vw,0.88rem); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; border-radius: var(--radius); transition: all var(--tr); display: inline-block; }
+    .btn-cta:hover { background: #f0e0b4; box-shadow: 0 8px 24px rgba(0,0,0,0.2); transform: translateY(-2px); }
 
     .modern-footer { background: var(--modern-dark); }
 
@@ -217,6 +217,17 @@
       .lb-prev { left: 0.4rem; }
       .lb-next { right: 0.4rem; }
     }
+    /* ── Andaman teal palette (no gold on this page) ── */
+    body {
+      --accent: #1b4d5c; --accent-2: #7fa6a8; --accent-soft: #dcebe9;
+      --modern-accent: #1b4d5c; --modern-accent-light: #7fa6a8;
+      --modern-dark: #0e2a3a; --modern-bg: #f1efe8;
+      --warm-accent: #1b4d5c; --warm-accent-light: #7fa6a8;
+    }
+    .btn-cta { background: var(--accent-soft); color: #0e2a3a; }
+    .btn-cta:hover { background: #eef6f5; }
+    .site-footer { background: #081720; }
+    .stats-bar { background: var(--modern-dark); }
   </style>
 </head>
 <body>
@@ -224,8 +235,7 @@
   <nav class="main-nav" id="mainNav">
     <a href="index.html" class="nav-logo">HomeHaven</a>
     <div class="nav-links">
-      <a href="student.html" class="nav-link">Student Rooms</a>
-      <a href="phuket.html" class="nav-link active">Phuket Villa</a>
+      <a href="index.html" class="nav-link">Home</a>
       <a href="index.html#contact" class="nav-link">Contact</a>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -476,8 +486,7 @@
     <div class="container footer-inner">
       <p class="footer-logo">HomeHaven</p>
       <nav class="footer-nav">
-        <a href="student.html">Student Rooms</a>
-        <a href="phuket.html">Phuket Villa</a>
+        <a href="index.html">Home</a>
         <a href="index.html#contact">Contact</a>
       </nav>
       <p class="footer-legal">© 2025 HomeHaven Properties</p>
@@ -667,5 +676,6 @@
     if (e.key === 'Escape')     closeLb();
   });
   </script>
+  <script src="js/motion.js" defer></script>
 </body>
 </html>
