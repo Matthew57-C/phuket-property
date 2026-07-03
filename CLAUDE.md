@@ -18,7 +18,7 @@ The user edits these JSON files directly on GitHub (pencil icon) to update conte
 
 ## Site overview
 
-- Static GitHub Pages site — deploy by pushing to `main`
+- Static GitHub Pages site — deploy by pushing to `main`. Repo renamed to `phuket-property`; site is Phuket-only (student pages removed). Experimental Lusion-style build lives in `v2/`.
 - Images hosted on Cloudinary (cloud: `dgioaobur`, folder: `RentalSite/Phuket`)
 - Admin panel at `admin/index.html` writes to `data/content.json` via GitHub API
 - Pages: `index.html`, `student.html`, `phuket.html`, `admin/index.html`

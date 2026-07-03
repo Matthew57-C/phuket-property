@@ -1,6 +1,6 @@
 /* content.js — fetches from GitHub, writes back via API */
 const HH_GH_USER = 'Matthew57-C';
-const HH_GH_REPO = 'RentalSite';
+const HH_GH_REPO = 'phuket-property';
 const HH_CONTENT_PATH = 'data/content.json';
 
 const CONTENT_DEFAULTS = {

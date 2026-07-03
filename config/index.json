@@ -1,19 +1,12 @@
 {
   "hero": {
-    "eyebrow": "Private Stays · England & Thailand",
-    "tagline": "From Cambridge courtyards to the Andaman Sea"
+    "eyebrow": "Kata Noi · Phuket · Thailand",
+    "tagline": "A private villa above the Andaman Sea"
   },
 
-  "statement": "Two very different places. The same standard of care.",
+  "statement": "One villa above the Andaman Sea, looked after completely.",
 
   "panels": [
-    {
-      "tag": "Cambridge · England",
-      "titleLine1": "Student",
-      "titleLine2": "Rooms",
-      "text": "Bills included, fully furnished, minutes from your college.",
-      "button": "Explore rooms →"
-    },
     {
       "tag": "Kata Noi · Phuket, Thailand",
       "titleLine1": "The Heights",
@@ -26,7 +19,7 @@
   "contact": {
     "sectionLabel": "Get in touch",
     "heading": "Let's talk",
-    "text": "Interested in either property or have a question? Drop us a message."
+    "text": "Interested in the villa or have a question? Drop us a message."
   },
 
   "footer": {
