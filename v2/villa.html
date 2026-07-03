@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Villa in Full — The Heights, Kata Noi</title>
+  <meta name="description" content="Every detail of The Heights Villa — bedrooms, pool, terrace, what's included and how to book direct."/>
+  <meta name="theme-color" content="#131c16"/>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23131c16'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='18' fill='%23efece3' text-anchor='middle'%3EH%3C/text%3E%3C/svg%3E"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root{ --bg:#efece3; --bg2:#e6e1d3; --ink:#131c16; --green:#22392e; --sage:#8a9b8e; --accent:#5c7160; }
+    body{ font-family:'Space Grotesk',sans-serif; color:var(--ink); background:var(--bg); overflow-x:hidden; }
+    .serif{ font-family:'Cormorant Garamond',serif; }
+    ::selection{ background:var(--accent); color:#fff; }
+    a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+    .coord{ font-size:.62rem; letter-spacing:.3em; text-transform:uppercase; opacity:.45; font-variant-numeric:tabular-nums; }
+    .navlink{ position:relative; }
+    .navlink::after{ content:''; position:absolute; left:0; bottom:-4px; height:1px; width:100%; background:currentColor;
+      transform:scaleX(0); transform-origin:right; transition:transform .4s cubic-bezier(.22,1,.36,1); }
+    .navlink:hover::after{ transform:scaleX(1); transform-origin:left; }
+    .grain{ position:fixed; inset:-50%; width:200%; height:200%; z-index:80; pointer-events:none; opacity:.05;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E"); }
+
+    .rev{ opacity:0; transform:translateY(30px); transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
+    .rev.in{ opacity:1; transform:none; }
+
+    #vhero{ position:relative; height:72vh; min-height:480px; overflow:hidden; background:var(--ink); }
+    #vhero img{ width:100%; height:100%; object-fit:cover; opacity:.85; animation:kb 18s ease-in-out infinite alternate; }
+    @keyframes kb{ from{ transform:scale(1); } to{ transform:scale(1.08); } }
+    #vhero .inner{ position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end; padding:6vw;
+      background:linear-gradient(to top,rgba(15,22,17,.75),transparent 60%); }
+
+    .feat li{ display:flex; gap:.7rem; align-items:flex-start; padding:.45rem 0; font-size:.95rem; }
+    .feat li::before{ content:''; width:6px; height:6px; border-radius:50%; background:var(--accent); flex-shrink:0; margin-top:.5em; }
+
+    .qf{ border:1px solid rgba(19,28,22,.18); }
+    .qf > div{ padding:1.4rem; border-right:1px solid rgba(19,28,22,.18); }
+    .qf > div:last-child{ border-right:0; }
+
+    #waveBand{ position:relative; min-height:64vh; display:flex; align-items:center; justify-content:center; overflow:hidden;
+      background-image:url('https://res.cloudinary.com/dgioaobur/image/upload/w_1800,h_900,c_fill,g_auto,q_85,e_improve:40,e_vibrance:15/IMG_2927_fmneuz.jpg');
+      background-size:cover; background-position:center; background-attachment:fixed; }
+    #waveBand::before{ content:''; position:absolute; inset:0; background:rgba(15,22,17,.5); }
+    @media (max-width:768px), (pointer:coarse){ #waveBand{ background-attachment:scroll; } }
+
+    #contact{ background:var(--bg2); }
+    .cform input,.cform textarea{ width:100%; background:transparent; border:0; border-bottom:1px solid rgba(19,28,22,.3);
+      padding:.9rem .1rem; font-family:'Space Grotesk',sans-serif; font-size:.92rem; color:var(--ink); transition:border-color .3s; }
+    .cform input:focus,.cform textarea:focus{ border-color:var(--accent); outline:none; }
+    .cform ::placeholder{ color:rgba(19,28,22,.4); }
+    .csubmit{ display:inline-flex; align-items:center; gap:.6rem; background:var(--green); color:var(--bg); border-radius:999px;
+      padding:1rem 2.2rem; font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; transition:background .3s,gap .3s; }
+    .csubmit:hover{ background:var(--accent); gap:1rem; }
+    .csubmit:disabled{ opacity:.5; }
+    @media (prefers-reduced-motion:reduce){ #vhero img{ animation:none; } .rev{ opacity:1; transform:none; transition:none; } }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-[4vw] py-6 mix-blend-difference text-white">
+    <a href="index.html" class="text-base md:text-lg font-medium tracking-tight">The Heights<sup class="text-[0.6rem] ml-1" style="color:#8a9b8e">villa</sup></a>
+    <div class="flex gap-4 md:gap-8 text-[0.62rem] md:text-[0.72rem] tracking-[0.2em] uppercase">
+      <a href="index.html" class="navlink opacity-80 hover:opacity-100 transition-opacity">Home</a>
+      <a href="index.html#gallery" class="navlink opacity-80 hover:opacity-100 transition-opacity">Gallery</a>
+      <a href="#contact" class="navlink opacity-80 hover:opacity-100 transition-opacity">Contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header id="vhero">
+    <img src="https://res.cloudinary.com/dgioaobur/image/upload/w_2000,h_1200,c_fill,g_auto,q_85,e_improve:35/B21_035_vsjcib.jpg" alt="The Heights Villa and the Andaman Sea" fetchpriority="high"/>
+    <div class="inner">
+      <p class="coord mb-4" style="color:#c9d2c9;opacity:.9">7°48′ N · 98°17′ E — Kata Noi, Phuket</p>
+      <h1 class="serif text-5xl md:text-8xl font-light leading-none" style="color:#f2efe6">The villa, <em class="italic">in full</em></h1>
+    </div>
+  </header>
+
+  <!-- SUMMARY + QUICK FACTS -->
+  <section class="max-w-5xl mx-auto px-6 py-[10vh]">
+    <div class="grid md:grid-cols-5 gap-12">
+      <div class="md:col-span-3 rev">
+        <p class="text-[0.7rem] tracking-[0.35em] uppercase opacity-50 mb-6">The short version</p>
+        <p class="serif text-2xl md:text-3xl leading-snug mb-6">Perched above the emerald waters of Kata Noi, The Heights offers two elegantly appointed bedrooms, an infinity pool and sweeping panoramic views across the Andaman Sea.</p>
+        <p class="opacity-75 leading-relaxed">Fully furnished and beautifully maintained, it is the ideal base for exploring Phuket's southern coastline — whether you're here for a long weekend or an extended escape. Book direct for the best rate and a personal welcome.</p>
+      </div>
+      <div class="md:col-span-2 rev">
+        <p class="text-[0.7rem] tracking-[0.35em] uppercase opacity-50 mb-6">Quick facts</p>
+        <div class="qf grid grid-cols-2 text-center">
+          <div><p class="serif text-3xl font-light">2</p><p class="coord mt-1">Bedrooms</p></div>
+          <div><p class="serif text-3xl font-light">2</p><p class="coord mt-1">Bathrooms</p></div>
+        </div>
+        <div class="qf grid grid-cols-2 text-center border-t-0">
+          <div><p class="serif text-3xl font-light">5</p><p class="coord mt-1">Guests</p></div>
+          <div><p class="serif text-3xl font-light">10′</p><p class="coord mt-1">To Kata Beach</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INCLUDED + IMAGES -->
+  <section class="max-w-5xl mx-auto px-6 pb-[10vh]">
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+      <div class="rev">
+        <p class="text-[0.7rem] tracking-[0.35em] uppercase opacity-50 mb-6">What's included</p>
+        <ul class="feat">
+          <li>Infinity pool with panoramic sea view</li>
+          <li>Fully equipped kitchen, worth cooking in</li>
+          <li>Fast fibre Wi-Fi — work from the terrace</li>
+          <li>Air conditioning throughout</li>
+          <li>Weekly housekeeping included</li>
+          <li>Secure parking and gated entrance</li>
+          <li>Local host, under 24-hour response</li>
+          <li>Best-rate guarantee when you book direct</li>
+        </ul>
+      </div>
+      <div class="grid gap-4 rev">
+        <img class="rounded-md" src="https://res.cloudinary.com/dgioaobur/image/upload/w_1100,h_700,c_fill,g_auto,q_82,e_improve:35/Pool_jyj96w.jpg" alt="Infinity pool" loading="lazy"/>
+        <div class="grid grid-cols-2 gap-4">
+          <img class="rounded-md" src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_800,c_fill,g_auto,q_82,e_improve:35/IMG_2953_r1592f.jpg" alt="Bedroom" loading="lazy"/>
+          <img class="rounded-md" src="https://res.cloudinary.com/dgioaobur/image/upload/w_700,h_800,c_fill,g_auto,q_82,e_improve:35/IMG_3036_w53472.jpg" alt="Interior" loading="lazy"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAVE BAND -->
+  <section id="waveBand" aria-label="The sea below the villa">
+    <blockquote class="relative z-[2] text-center px-6 max-w-3xl rev">
+      <p class="serif text-3xl md:text-5xl leading-snug" style="color:#f2efe6;font-style:italic">"Ten minutes from the beach, a world away from everything."</p>
+      <cite class="coord block mt-6 not-italic" style="color:#c9d2c9">The Heights · Kata Noi</cite>
+    </blockquote>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="max-w-5xl mx-auto px-6 py-[12vh] grid md:grid-cols-2 gap-14">
+      <div class="rev">
+        <p class="text-[0.7rem] tracking-[0.35em] uppercase opacity-50 mb-6">Book direct</p>
+        <h2 class="serif text-4xl md:text-6xl font-light leading-tight mb-6">Check your <em class="italic" style="color:var(--accent)">dates</em></h2>
+        <p class="opacity-70 max-w-sm mb-8">No platform fees, best rate guaranteed, and an answer within 24 hours.</p>
+        <p class="text-sm opacity-70"><a href="mailto:suziezhu7717@gmail.com" class="navlink">suziezhu7717@gmail.com</a></p>
+        <p class="text-sm opacity-70 mt-1"><a href="tel:07762219808" class="navlink">07762 219808</a></p>
+      </div>
+      <form class="cform flex flex-col gap-5 rev" id="contactForm">
+        <input type="text" name="name" placeholder="Your name" required autocomplete="name"/>
+        <input type="email" name="email" placeholder="Email address" required autocomplete="email"/>
+        <input type="text" name="dates" placeholder="Rough dates (optional)"/>
+        <textarea name="message" rows="4" placeholder="Your message" required></textarea>
+        <button type="submit" class="csubmit w-max">Send enquiry <i data-lucide="send" class="w-4 h-4"></i></button>
+        <p class="text-sm min-h-[1.4em]" id="formNote" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <footer class="px-[6vw] py-10" style="background:var(--ink);color:var(--bg)">
+    <div class="flex flex-wrap justify-between items-center gap-4 text-sm opacity-70">
+      <p class="coord">The Heights Villa · Kata Noi · Phuket</p>
+      <div class="flex gap-6 text-[0.7rem] tracking-[0.2em] uppercase">
+        <a href="index.html" class="navlink">Home</a>
+        <a href="index.html#gallery" class="navlink">Gallery</a>
+        <a href="#contact" class="navlink">Contact</a>
+      </div>
+      <p class="text-[0.7rem] opacity-60">© 2025 The Heights Villa</p>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+  (function () {
+    if (window.lucide) lucide.createIcons();
+    var obs = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.rev').forEach(function (el) { obs.observe(el); });
+
+    var form = document.getElementById('contactForm');
+    if (form) form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var note = document.getElementById('formNote');
+      var btn = form.querySelector('[type="submit"]');
+      btn.disabled = true; note.style.color = ''; note.textContent = 'Sending…';
+      var fd = new FormData(form);
+      fd.append('_subject', 'The Heights Villa — booking enquiry');
+      fd.append('_captcha', 'false');
+      fetch('https://formsubmit.co/ajax/suziezhu7717@gmail.com', { method: 'POST', headers: { 'Accept': 'application/json' }, body: fd })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (d.success === 'true' || d.success === true) {
+            note.style.color = '#5c7160'; note.textContent = 'Sent — we\'ll reply within 24 hours.'; form.reset();
+          } else { throw new Error(); }
+        })
+        .catch(function () { note.style.color = '#a33'; note.textContent = 'Something went wrong — please email us directly.'; })
+        .finally(function () { btn.disabled = false; });
+    });
+  })();
+  </script>
+</body>
+</html>

@@ -18,8 +18,8 @@
     body{ font-family:'Space Grotesk',sans-serif; color:var(--ink); background:var(--bg); overflow-x:hidden; }
     .serif{ font-family:'Cormorant Garamond',serif; }
     ::selection{ background:var(--accent); color:#fff; }
-    a:focus-visible,button:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
-    @media (pointer:fine){ body{cursor:none;} a,button{cursor:none;} }
+    a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+    @media (pointer:fine){ body{cursor:none;} a,button,input,textarea,select{cursor:none;} }
 
     #preloader{ position:fixed; inset:0; z-index:100; background:var(--green); color:var(--bg);
       display:flex; flex-direction:column; justify-content:space-between; padding:4vw; }
@@ -44,6 +44,12 @@
       transform:scaleX(0); transform-origin:right; transition:transform .4s cubic-bezier(.22,1,.36,1); }
     .navlink:hover::after{ transform:scaleX(1); transform-origin:left; }
 
+    /* Igloo-style HUD details */
+    .hud{ position:relative; }
+    .hud::before,.hud::after{ content:'+'; position:absolute; font-weight:300; opacity:.35; font-size:.9rem; line-height:1; }
+    .hud::before{ top:.6rem; left:.8rem; } .hud::after{ bottom:.6rem; right:.8rem; }
+    .coord{ font-size:.62rem; letter-spacing:.3em; text-transform:uppercase; opacity:.45; font-variant-numeric:tabular-nums; }
+
     /* Hero */
     #hero{ height:100vh; overflow:hidden; position:relative; background:var(--ink); }
     #heroImgWrap{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
@@ -66,13 +72,12 @@
       font-size:.68rem; letter-spacing:.3em; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:.5rem; }
     #heroScroll::after{ content:''; width:1px; height:34px; background:linear-gradient(to bottom,rgba(239,236,227,.6),transparent); }
 
-    /* Journey: line as water, boat sails it and docks */
+    /* Journey line + compass marker */
     #journeyWrap{ position:relative; }
     #scrollLine{ position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; overflow:visible; }
     #linePath{ fill:none; stroke:var(--sage); stroke-width:2.5; }
-    #dock line{ stroke:var(--green); stroke-width:3; stroke-linecap:round; }
-    #boat{ will-change:transform; }
-    #boat path, #boat line{ stroke:var(--green); fill:var(--green); }
+    #lineMarker{ position:absolute; top:0; left:0; z-index:2; width:34px; height:34px; opacity:0; pointer-events:none; will-change:transform; }
+    #lineEnd{ position:absolute; top:0; left:0; z-index:1; width:12px; height:12px; border:2px solid var(--accent); border-radius:50%; background:var(--bg); opacity:0; pointer-events:none; }
 
     .scrub-words span{ opacity:.12; }
 
@@ -88,6 +93,16 @@
     .gal-card figcaption{ position:absolute; left:0; bottom:-2rem; font-size:.66rem; letter-spacing:.24em; text-transform:uppercase; opacity:.55; }
     .gal-num{ position:absolute; top:-2.4rem; right:0; font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1.1rem; opacity:.5; color:var(--sage); }
 
+    /* Spec sheet (Igloo) */
+    #specs{ background:var(--ink); color:var(--bg); }
+    .spec-grid{ display:grid; grid-template-columns:repeat(2,1fr); border:1px solid rgba(239,236,227,.14); }
+    @media(min-width:768px){ .spec-grid{ grid-template-columns:repeat(4,1fr); } }
+    .spec{ padding:clamp(1.4rem,3vw,2.4rem); border-right:1px solid rgba(239,236,227,.14); border-bottom:1px solid rgba(239,236,227,.14); transition:background .35s; position:relative; }
+    .spec:hover{ background:rgba(138,155,142,.1); }
+    .spec .idx{ font-size:.6rem; letter-spacing:.25em; opacity:.4; display:block; margin-bottom:1.6rem; font-variant-numeric:tabular-nums; }
+    .spec .val{ font-family:'Cormorant Garamond',serif; font-size:clamp(1.6rem,3vw,2.4rem); font-weight:300; line-height:1.05; }
+    .spec .lbl{ font-size:.62rem; letter-spacing:.24em; text-transform:uppercase; opacity:.55; margin-top:.5rem; display:block; }
+
     .world{ position:sticky; top:0; height:100vh; overflow:hidden; display:flex; align-items:flex-end; }
     .world img.bg{ position:absolute; inset:0; width:100%; height:112%; top:-6%; object-fit:cover; will-change:transform; }
     .world .scrim{ position:absolute; inset:0; background:linear-gradient(to top,rgba(15,22,17,.82),rgba(15,22,17,.05) 55%); }
@@ -98,6 +113,31 @@
       padding:.9rem 1.8rem; color:#f2efe6; font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; transition:background .3s,border-color .3s,gap .3s; }
     .wbtn:hover{ background:rgba(138,155,142,.22); border-color:#f2efe6; gap:1rem; }
 
+    /* Itinerary */
+    .iti{ border-left:1px solid rgba(19,28,22,.2); }
+    .iti li{ position:relative; padding:1.1rem 0 1.1rem 2.2rem; }
+    .iti li::before{ content:''; position:absolute; left:-4px; top:1.75rem; width:7px; height:7px; border-radius:50%; background:var(--accent); }
+    .iti time{ font-size:.68rem; letter-spacing:.22em; opacity:.5; font-variant-numeric:tabular-nums; display:block; margin-bottom:.15rem; }
+
+    /* Wave band */
+    #waveBand{ position:relative; min-height:72vh; display:flex; align-items:center; justify-content:center; overflow:hidden;
+      background-image:url('https://res.cloudinary.com/dgioaobur/image/upload/w_1800,h_900,c_fill,g_auto,q_85,e_improve:40,e_vibrance:15/Sunset_5_es90xj.jpg');
+      background-size:cover; background-position:center; background-attachment:fixed; }
+    #waveBand::before{ content:''; position:absolute; inset:0; background:rgba(15,22,17,.5); }
+    @media (max-width:768px), (pointer:coarse){ #waveBand{ background-attachment:scroll; } }
+
+    /* Contact form */
+    #contact{ background:var(--bg2); }
+    .cform input,.cform select,.cform textarea{
+      width:100%; background:transparent; border:0; border-bottom:1px solid rgba(19,28,22,.3);
+      padding:.9rem .1rem; font-family:'Space Grotesk',sans-serif; font-size:.92rem; color:var(--ink); transition:border-color .3s; }
+    .cform input:focus,.cform select:focus,.cform textarea:focus{ border-color:var(--accent); outline:none; }
+    .cform ::placeholder{ color:rgba(19,28,22,.4); }
+    .csubmit{ display:inline-flex; align-items:center; gap:.6rem; background:var(--green); color:var(--bg); border-radius:999px;
+      padding:1rem 2.2rem; font-size:.78rem; letter-spacing:.16em; text-transform:uppercase; transition:background .3s,gap .3s; }
+    .csubmit:hover{ background:var(--accent); gap:1rem; }
+    .csubmit:disabled{ opacity:.5; }
+
     #footer{ background:var(--ink); color:var(--bg); }
     #sayHello{ font-size:clamp(3.5rem,12vw,10.5rem); line-height:.9; font-weight:500; letter-spacing:-.03em; display:inline-block; will-change:transform; }
     #sayHello em{ font-family:'Cormorant Garamond',serif; font-style:italic; font-weight:300; color:var(--sage); }
@@ -107,7 +147,6 @@
       body{ cursor:auto; } .cursor-dot,.cursor-ring{ display:none; }
       .scrub-words span{ opacity:1; }
       #preName span{ transform:none; }
-      #heroImg2{ opacity:0; }
     }
   </style>
 </head>
@@ -115,7 +154,7 @@
 
   <div id="preloader">
     <div>
-      <p class="text-[0.62rem] tracking-[0.35em] uppercase opacity-50 mb-6" style="color:var(--sage)">Kata Noi · Phuket · 7°48′ N</p>
+      <p class="coord mb-6" style="color:var(--sage);opacity:.8">7°48′ N · 98°17′ E — Kata Noi</p>
       <h1 id="preName"><span>The Heights</span></h1>
     </div>
     <div class="count">0</div>
@@ -125,15 +164,15 @@
   <div id="progressBar" aria-hidden="true"></div>
 
   <nav id="mainNav" class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-[4vw] py-6 mix-blend-difference text-white">
-    <a href="index.html" class="text-lg font-medium tracking-tight" data-hover>The Heights<sup class="text-[0.6rem] ml-1" style="color:#8a9b8e">villa</sup></a>
-    <div class="flex gap-8 text-[0.72rem] tracking-[0.2em] uppercase">
+    <a href="index.html" class="text-base md:text-lg font-medium tracking-tight" data-hover>The Heights<sup class="text-[0.6rem] ml-1" style="color:#8a9b8e">villa</sup></a>
+    <div class="flex gap-4 md:gap-8 text-[0.62rem] md:text-[0.72rem] tracking-[0.2em] uppercase">
       <a href="#gallery" data-hover class="navlink opacity-80 hover:opacity-100 transition-opacity">Gallery</a>
-      <a href="#villa" data-hover class="navlink opacity-80 hover:opacity-100 transition-opacity">The Villa</a>
+      <a href="villa.html" data-hover class="navlink opacity-80 hover:opacity-100 transition-opacity">The Villa</a>
       <a href="#contact" data-hover class="navlink opacity-80 hover:opacity-100 transition-opacity">Contact</a>
     </div>
   </nav>
 
-  <!-- HERO — the approach by sea, dissolving up to the villa at dusk -->
+  <!-- HERO -->
   <section id="hero">
     <h1 id="heroTitleTop">THE HEIGHTS</h1>
     <div id="heroImgWrap">
@@ -152,25 +191,18 @@
     <p id="heroScroll">Scroll to come ashore</p>
   </section>
 
-  <!-- JOURNEY — the sage line is the water; a longtail boat sails it and docks -->
+  <!-- JOURNEY -->
   <div id="journeyWrap">
     <svg id="scrollLine" viewBox="0 0 1000 2400" preserveAspectRatio="none" aria-hidden="true">
       <path id="linePath" d="M 500 0 C 500 200, 180 260, 180 460 S 820 700, 820 940 S 200 1220, 200 1480 S 780 1800, 500 2020 C 380 2120, 460 2260, 460 2330" />
-      <g id="dock">
-        <line x1="470" y1="2330" x2="560" y2="2330"/>
-        <line x1="490" y1="2330" x2="490" y2="2352"/>
-        <line x1="520" y1="2330" x2="520" y2="2352"/>
-        <line x1="550" y1="2330" x2="550" y2="2352"/>
-      </g>
-      <g id="boat" opacity="0">
-        <g id="boatBob">
-          <path d="M -26 0 Q -14 9 0 9 Q 16 9 28 -2 L 21 -1 Q 14 5 0 5 Q -10 5 -19 -1 Z"/>
-          <line x1="24" y1="-2" x2="40" y2="-10" stroke-width="2"/>
-          <line x1="-8" y1="4" x2="-8" y2="-14" stroke-width="2"/>
-          <path d="M -8 -14 L 2 -10 L -8 -7 Z"/>
-        </g>
-      </g>
     </svg>
+    <div id="lineMarker" aria-hidden="true">
+      <svg viewBox="0 0 34 34" width="34" height="34">
+        <circle cx="17" cy="17" r="15.5" fill="#efece3" stroke="#22392e" stroke-width="1.5"/>
+        <path d="M10 17 H22 M22 17 L17.5 12.5 M22 17 L17.5 21.5" fill="none" stroke="#22392e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div id="lineEnd" aria-hidden="true"></div>
 
     <section class="relative z-[2] py-[16vh]">
       <div class="max-w-3xl mx-auto px-6 text-center">
@@ -187,35 +219,62 @@
     </div>
 
     <section class="relative z-[2] py-[14vh]">
-      <div class="max-w-5xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-10 text-center">
-        <div data-fade><p class="stat text-5xl md:text-6xl font-light" data-target="2">0</p><p class="text-[0.65rem] tracking-[0.25em] uppercase opacity-50 mt-2">Bedrooms</p></div>
-        <div data-fade><p class="stat text-5xl md:text-6xl font-light" data-target="5">0</p><p class="text-[0.65rem] tracking-[0.25em] uppercase opacity-50 mt-2">Guests</p></div>
-        <div data-fade><p class="stat text-5xl md:text-6xl font-light" data-target="10">0</p><p class="text-[0.65rem] tracking-[0.25em] uppercase opacity-50 mt-2">Min to Kata Beach</p></div>
-        <div data-fade><p class="stat text-5xl md:text-6xl font-light" data-target="24">0</p><p class="text-[0.65rem] tracking-[0.25em] uppercase opacity-50 mt-2">Hr response</p></div>
+      <div class="max-w-4xl mx-auto px-6">
+        <p class="coord text-center mb-10" data-fade>A day at the heights — pick your pace</p>
+        <ul class="iti max-w-xl mx-auto">
+          <li data-fade><time>07:00</time><span class="serif text-xl md:text-2xl">Sunrise swim, pool to yourself</span></li>
+          <li data-fade><time>10:00</time><span class="serif text-xl md:text-2xl">Ten minutes down to Kata Beach</span></li>
+          <li data-fade><time>14:00</time><span class="serif text-xl md:text-2xl">Long lunch on the terrace</span></li>
+          <li data-fade><time>18:30</time><span class="serif text-xl md:text-2xl">The nightly sunset show, front row</span></li>
+          <li data-fade><time>21:00</time><span class="serif text-xl md:text-2xl">Warm night, pool lights on</span></li>
+        </ul>
       </div>
     </section>
   </div>
 
   <!-- GALLERY -->
-  <section id="gallery" class="relative">
+  <section id="gallery" class="relative hud">
     <div class="px-[6vw] pt-[12vh] pb-4 flex items-end justify-between">
       <h2 class="serif text-4xl md:text-6xl font-light">Postcards <em class="italic" style="color:#8a9b8e">from the villa</em></h2>
       <p class="text-[0.65rem] tracking-[0.3em] uppercase opacity-50 pb-2 hidden md:block">Just keep scrolling</p>
     </div>
     <div id="galPin">
       <div id="galTrack" class="flex items-center gap-[5vw] px-[8vw] h-[74vh] w-max">
-        <figure class="gal-card w-[64vw] md:w-[34vw] h-[52vh] md:h-[60vh]"><span class="gal-num">i.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1000,h_1300,c_fill,g_auto,q_82,e_improve:35/Swimming_Pool_kq6nuw.jpg" alt="The pool" loading="lazy"/><figcaption>The pool, mid-afternoon</figcaption></figure>
-        <figure class="gal-card w-[70vw] md:w-[44vw] h-[44vh] md:h-[52vh]"><span class="gal-num">ii.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1200,h_800,c_fill,g_auto,q_82,e_improve:35/B21_016_hq6j8l.jpg" alt="Living space" loading="lazy"/><figcaption>Living, opened right up</figcaption></figure>
-        <figure class="gal-card w-[60vw] md:w-[30vw] h-[56vh] md:h-[64vh]"><span class="gal-num">iii.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1000,h_1400,c_fill,g_auto,q_82,e_improve:35/IMG-2111_zocig9.jpg" alt="Villa detail" loading="lazy"/><figcaption>Details, everywhere</figcaption></figure>
-        <figure class="gal-card w-[70vw] md:w-[42vw] h-[46vh] md:h-[54vh]"><span class="gal-num">iv.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1200,h_800,c_fill,g_auto,q_82,e_improve:35/IMG_2953_r1592f.jpg" alt="Bedroom" loading="lazy"/><figcaption>Beds worth the jetlag</figcaption></figure>
-        <figure class="gal-card w-[64vw] md:w-[36vw] h-[52vh] md:h-[62vh]"><span class="gal-num">v.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1000,h_1300,c_fill,g_auto,q_82,e_improve:40,e_vibrance:20/Sunset_7_taetjn.jpg" alt="Sunset" loading="lazy"/><figcaption>The nightly show</figcaption></figure>
-        <figure class="gal-card w-[70vw] md:w-[44vw] h-[44vh] md:h-[52vh]"><span class="gal-num">vi.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1200,h_800,c_fill,g_auto,q_82,e_improve:35/B21_070_kd32f7.jpg" alt="Terrace" loading="lazy"/><figcaption>Terrace, all yours</figcaption></figure>
+        <figure class="gal-card w-[64vw] md:w-[34vw] h-[52vh] md:h-[60vh]"><span class="gal-num">i.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1000,h_1300,c_fill,g_auto,q_82,e_improve:35/Swimming_Pool_kq6nuw.jpg" alt="The infinity pool in afternoon light" loading="lazy"/><figcaption>The pool, mid-afternoon</figcaption></figure>
+        <figure class="gal-card w-[70vw] md:w-[44vw] h-[44vh] md:h-[52vh]"><span class="gal-num">ii.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1200,h_800,c_fill,g_auto,q_82,e_improve:35/B21_016_hq6j8l.jpg" alt="Open-plan living space" loading="lazy"/><figcaption>Living, opened right up</figcaption></figure>
+        <figure class="gal-card w-[60vw] md:w-[30vw] h-[56vh] md:h-[64vh]"><span class="gal-num">iii.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1000,h_1400,c_fill,g_auto,q_82,e_improve:35/IMG-2111_zocig9.jpg" alt="Interior detail of the villa" loading="lazy"/><figcaption>Details, everywhere</figcaption></figure>
+        <figure class="gal-card w-[70vw] md:w-[42vw] h-[46vh] md:h-[54vh]"><span class="gal-num">iv.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1200,h_800,c_fill,g_auto,q_82,e_improve:35/IMG_2953_r1592f.jpg" alt="Bedroom with sea view" loading="lazy"/><figcaption>Beds worth the jetlag</figcaption></figure>
+        <figure class="gal-card w-[64vw] md:w-[36vw] h-[52vh] md:h-[62vh]"><span class="gal-num">v.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1000,h_1300,c_fill,g_auto,q_82,e_improve:40,e_vibrance:20/Sunset_7_taetjn.jpg" alt="Sunset over the Andaman Sea" loading="lazy"/><figcaption>The nightly show</figcaption></figure>
+        <figure class="gal-card w-[70vw] md:w-[44vw] h-[44vh] md:h-[52vh]"><span class="gal-num">vi.</span><img src="https://res.cloudinary.com/dgioaobur/image/upload/w_1200,h_800,c_fill,g_auto,q_82,e_improve:35/B21_070_kd32f7.jpg" alt="Private terrace" loading="lazy"/><figcaption>Terrace, all yours</figcaption></figure>
       </div>
     </div>
-    <div class="px-[6vw] pb-[10vh] pt-8"><p class="text-[0.65rem] tracking-[0.3em] uppercase opacity-40" style="color:#8a9b8e">06 frames · Kata Noi, Phuket</p></div>
+    <div class="px-[6vw] pb-[10vh] pt-8 flex justify-between items-center">
+      <p class="coord" style="color:#8a9b8e">06 frames · Kata Noi, Phuket</p>
+      <a href="villa.html" data-hover class="navlink text-[0.68rem] tracking-[0.25em] uppercase" style="color:#c9d2c9">See every room →</a>
+    </div>
   </section>
 
-  <!-- THE VILLA — inside, then outside -->
+  <!-- SPEC SHEET (Igloo-style) -->
+  <section id="specs" class="hud">
+    <div class="px-[6vw] py-[12vh]">
+      <div class="flex items-end justify-between mb-10 flex-wrap gap-4">
+        <h2 class="serif text-4xl md:text-6xl font-light">The villa, <em class="italic" style="color:#8a9b8e">by the numbers</em></h2>
+        <p class="coord" style="color:#8a9b8e">REF: HH-KATA-01 · 7°48′ N 98°17′ E</p>
+      </div>
+      <div class="spec-grid" data-fade>
+        <div class="spec"><span class="idx">01</span><span class="val">2</span><span class="lbl">Bedrooms</span></div>
+        <div class="spec"><span class="idx">02</span><span class="val">2</span><span class="lbl">Bathrooms</span></div>
+        <div class="spec"><span class="idx">03</span><span class="val">5</span><span class="lbl">Guests, up to</span></div>
+        <div class="spec"><span class="idx">04</span><span class="val">Infinity</span><span class="lbl">Shared pool</span></div>
+        <div class="spec"><span class="idx">05</span><span class="val">180°</span><span class="lbl">Andaman panorama</span></div>
+        <div class="spec"><span class="idx">06</span><span class="val">10 min</span><span class="lbl">To Kata Beach</span></div>
+        <div class="spec"><span class="idx">07</span><span class="val">Direct</span><span class="lbl">No platform fees</span></div>
+        <div class="spec"><span class="idx">08</span><span class="val">&lt; 24 h</span><span class="lbl">Response time</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE VILLA -->
   <div id="villa" class="relative">
     <section class="world">
       <img class="bg" src="https://res.cloudinary.com/dgioaobur/image/upload/w_1800,h_1100,c_fill,g_auto,q_85,e_improve:35/B21_016_hq6j8l.jpg" alt="Inside The Heights Villa"/>
@@ -226,7 +285,7 @@
         <p class="localtime text-[0.7rem] uppercase opacity-50 mb-5" data-tz="Asia/Bangkok">--:--:--</p>
         <h2 class="serif text-6xl md:text-8xl font-light leading-none mb-5">Made to <em class="italic">stay in</em></h2>
         <p class="opacity-80 mb-8 max-w-md">Two elegant bedrooms, two bathrooms, a kitchen worth cooking in. Fully furnished, beautifully kept.</p>
-        <a class="wbtn" href="../phuket.html" data-hover>Full details <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+        <a class="wbtn" href="villa.html" data-hover>Full details <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
       </div>
     </section>
     <section class="world">
@@ -238,24 +297,51 @@
         <p class="text-[0.7rem] uppercase opacity-50 mb-5 localtime" data-tz="Asia/Bangkok" data-suffix=" · GMT+7">--:--:--</p>
         <h2 class="serif text-6xl md:text-8xl font-light leading-none mb-5">Made to <em class="italic">stare at</em></h2>
         <p class="opacity-80 mb-8 max-w-md">Infinity pool, wraparound terrace, and a panorama across the Andaman Sea. Ten minutes from Kata Beach.</p>
-        <a class="wbtn" href="mailto:suziezhu7717@gmail.com?subject=The Heights Villa — booking enquiry" data-hover style="border-color:rgba(138,155,142,.7)">Book direct <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
+        <a class="wbtn" href="#contact" data-hover style="border-color:rgba(138,155,142,.7)">Book direct <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a>
       </div>
     </section>
   </div>
 
+  <!-- WAVE BAND -->
+  <section id="waveBand" aria-label="Sunset over the sea">
+    <blockquote class="relative z-[2] text-center px-6 max-w-3xl" data-fade>
+      <p class="serif text-3xl md:text-5xl leading-snug" style="color:#f2efe6;font-style:italic">"The sunset alone is worth the flight."</p>
+      <cite class="coord block mt-6 not-italic" style="color:#c9d2c9">— guest review, five stars</cite>
+    </blockquote>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section id="contact" class="hud">
+    <div class="max-w-5xl mx-auto px-6 py-[14vh] grid md:grid-cols-2 gap-14">
+      <div data-fade>
+        <p class="text-[0.7rem] tracking-[0.35em] uppercase opacity-50 mb-6">Get in touch</p>
+        <h2 class="serif text-4xl md:text-6xl font-light leading-tight mb-6">Ask us <em class="italic" style="color:var(--accent)">anything</em></h2>
+        <p class="opacity-70 max-w-sm mb-8">Dates, rates, airport pickup, the best pad thai within ten minutes — we answer everything within a day.</p>
+        <p class="text-sm opacity-70"><a href="mailto:suziezhu7717@gmail.com" data-hover class="navlink">suziezhu7717@gmail.com</a></p>
+        <p class="text-sm opacity-70 mt-1"><a href="tel:07762219808" data-hover class="navlink">07762 219808</a></p>
+      </div>
+      <form class="cform flex flex-col gap-5" id="contactForm" data-fade>
+        <input type="text" name="name" placeholder="Your name" required autocomplete="name"/>
+        <input type="email" name="email" placeholder="Email address" required autocomplete="email"/>
+        <input type="text" name="dates" placeholder="Rough dates (optional)"/>
+        <textarea name="message" rows="4" placeholder="Your message" required></textarea>
+        <button type="submit" class="csubmit w-max" data-hover>Send enquiry <i data-lucide="send" class="w-4 h-4"></i></button>
+        <p class="text-sm min-h-[1.4em]" id="formNote" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer id="footer" class="relative">
-    <div id="contact" class="px-[6vw] pt-[16vh] pb-[10vh]">
-      <p class="text-[0.7rem] tracking-[0.35em] uppercase opacity-50 mb-8" data-fade>Enquiries · book direct, no platform fees</p>
+    <div class="px-[6vw] pt-[14vh] pb-[8vh]">
+      <p class="text-[0.7rem] tracking-[0.35em] uppercase opacity-50 mb-8" data-fade>Or simply…</p>
       <a id="sayHello" href="mailto:suziezhu7717@gmail.com" data-hover data-magnet class="block w-max" data-fade>Say <em>hello</em></a>
       <div class="flex flex-wrap justify-between items-end gap-6 mt-[10vh] text-sm opacity-70">
-        <div>
-          <p><a href="mailto:suziezhu7717@gmail.com" data-hover>suziezhu7717@gmail.com</a></p>
-          <p><a href="tel:07762219808" data-hover>07762 219808</a></p>
-        </div>
+        <p class="coord">The Heights Villa · Kata Noi · Phuket · Thailand</p>
         <div class="flex gap-6 text-[0.7rem] tracking-[0.2em] uppercase">
-          <a href="../phuket.html" data-hover class="navlink">Full villa details</a>
-          <a href="../index.html" data-hover class="navlink">Classic site</a>
+          <a href="villa.html" data-hover class="navlink">The villa</a>
+          <a href="#gallery" data-hover class="navlink">Gallery</a>
+          <a href="#contact" data-hover class="navlink">Contact</a>
         </div>
         <p class="text-[0.7rem] opacity-60">© 2025 The Heights Villa</p>
       </div>
@@ -264,7 +350,6 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <script>
@@ -281,9 +366,29 @@
     }
     tickClocks(); setInterval(tickClocks, 1000);
 
+    // Contact form → email (formsubmit.co)
+    var form = document.getElementById('contactForm');
+    if (form) form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var note = document.getElementById('formNote');
+      var btn = form.querySelector('[type="submit"]');
+      btn.disabled = true; note.style.color = ''; note.textContent = 'Sending…';
+      var fd = new FormData(form);
+      fd.append('_subject', 'The Heights Villa — enquiry');
+      fd.append('_captcha', 'false');
+      fetch('https://formsubmit.co/ajax/suziezhu7717@gmail.com', { method: 'POST', headers: { 'Accept': 'application/json' }, body: fd })
+        .then(function (r) { return r.json(); })
+        .then(function (d) {
+          if (d.success === 'true' || d.success === true) {
+            note.style.color = '#5c7160'; note.textContent = 'Sent — we\'ll reply within 24 hours.'; form.reset();
+          } else { throw new Error(); }
+        })
+        .catch(function () { note.style.color = '#a33'; note.textContent = 'Something went wrong — please email us directly.'; })
+        .finally(function () { btn.disabled = false; });
+    });
+
     if (!window.gsap) { var p = document.getElementById('preloader'); if (p) p.style.display = 'none'; return; }
     gsap.registerPlugin(ScrollTrigger);
-    if (window.MotionPathPlugin) gsap.registerPlugin(MotionPathPlugin);
 
     var lenis = null;
     if (window.Lenis && !reduced) {
@@ -322,7 +427,7 @@
       start: 0, end: 'max'
     });
 
-    // ── HERO: gentle swell, dive, dissolve-through-light to the pool at dusk ──
+    // HERO — swell, dive, dissolve through light
     gsap.to('#heroFrame', { rotate: 0.7, yPercent: 0.6, duration: 3.2, ease: 'sine.inOut', yoyo: true, repeat: -1 });
     var tl = gsap.timeline({
       scrollTrigger: { trigger: '#hero', start: 'top top', end: '+=360%', scrub: 0.6, pin: true, anticipatePin: 1 }
@@ -334,11 +439,9 @@
       .to('#heroScroll, .frame-label', { opacity: 0, duration: 0.05 }, 0)
       .to('#heroCap1', { opacity: 1, duration: 0.07 }, 0.2)
       .to('#heroCap1', { opacity: 0, duration: 0.07 }, 0.36)
-      // the approach: zoom toward the boat, drifting as if under way
       .to('#heroImg', { scale: 3.2, xPercent: -6, yPercent: 13, ease: 'power1.in', duration: 0.48 }, 0.2)
       .to('#heroCap2', { opacity: 1, duration: 0.07 }, 0.44)
       .to('#heroCap2', { opacity: 0, duration: 0.06 }, 0.58)
-      // dissolve through light: img1 blurs & brightens, veil blooms, img2 sharpens out of it
       .to('#heroImg', { filter: 'blur(14px) brightness(1.5)', ease: 'power1.in', duration: 0.2 }, 0.58)
       .to('#heroVeil', { opacity: 0.85, ease: 'power1.in', duration: 0.14 }, 0.6)
       .to('#heroImg2', { opacity: 1, duration: 0.18, ease: 'none' }, 0.66)
@@ -347,28 +450,49 @@
       .to('#heroCap3', { opacity: 1, duration: 0.07 }, 0.85)
       .to('#heroCap3', { opacity: 0, duration: 0.06 }, 0.97);
 
-    // ── The sage line is the crossing; the longtail sails it and docks ──
+    // JOURNEY LINE + compass marker (HTML overlay — mathematically placed, never distorts)
     var path = document.getElementById('linePath');
-    var boat = document.getElementById('boat');
-    if (path) {
+    var marker = document.getElementById('lineMarker');
+    var endDot = document.getElementById('lineEnd');
+    var wrap = document.getElementById('journeyWrap');
+    if (path && marker) {
       var len = path.getTotalLength();
       path.style.strokeDasharray = len;
       path.style.strokeDashoffset = len;
+
+      function pathPointToWrap(dist) {
+        var pt = path.getPointAtLength(dist);
+        var m = path.getScreenCTM();
+        if (!m) return null;
+        var wr = wrap.getBoundingClientRect();
+        var sp = new DOMPoint(pt.x, pt.y).matrixTransform(m);
+        return { x: sp.x - wr.left, y: sp.y - wr.top };
+      }
+      function placeMarker(progress) {
+        var d = Math.max(0, Math.min(1, progress)) * len;
+        var p1 = pathPointToWrap(d);
+        var p2 = pathPointToWrap(Math.min(d + 2, len));
+        if (!p1 || !p2) return;
+        var ang = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
+        marker.style.transform = 'translate(' + p1.x + 'px,' + p1.y + 'px) translate(-50%,-50%) rotate(' + ang + 'deg)';
+      }
+      function placeEnd() {
+        var pe = pathPointToWrap(len);
+        if (pe) endDot.style.transform = 'translate(' + pe.x + 'px,' + pe.y + 'px) translate(-50%,-50%)';
+      }
       var lineST = { trigger: '#journeyWrap', start: 'top 70%', end: 'bottom 60%', scrub: 0.5 };
       gsap.to(path, { strokeDashoffset: 0, ease: 'none', scrollTrigger: lineST });
-      if (boat && window.MotionPathPlugin) {
-        gsap.to(boat, { opacity: 1, duration: 0.1, scrollTrigger: { trigger: '#journeyWrap', start: 'top 69%', end: 'top 60%', scrub: true } });
-        gsap.to(boat, {
-          motionPath: { path: '#linePath', align: '#linePath', alignOrigin: [0.5, 0.6], autoRotate: true },
-          ease: 'none',
-          scrollTrigger: lineST
-        });
-        // idle bob — the boat rides the water the whole way, settling at the dock
-        gsap.to('#boatBob', { y: -3, rotation: -2, transformOrigin: '50% 50%', duration: 1.6, ease: 'sine.inOut', yoyo: true, repeat: -1 });
-      }
-      // dock appears as the boat closes in
-      gsap.from('#dock line', { opacity: 0, scaleX: 0, transformOrigin: 'left center', stagger: 0.08, duration: 0.4,
-        scrollTrigger: { trigger: '#journeyWrap', start: 'bottom 78%' } });
+      ScrollTrigger.create({
+        trigger: '#journeyWrap', start: 'top 70%', end: 'bottom 60%', scrub: 0.5,
+        onUpdate: function (self) {
+          marker.style.opacity = self.progress > 0.01 ? 1 : 0;
+          placeMarker(self.progress);
+          endDot.style.opacity = self.progress > 0.12 ? 1 : 0;
+        },
+        onRefresh: function (self) { placeMarker(self.progress); placeEnd(); }
+      });
+      window.addEventListener('resize', function () { placeEnd(); });
+      placeEnd();
     }
 
     var idea = document.getElementById('ideaText');
@@ -380,10 +504,6 @@
 
     gsap.utils.toArray('[data-fade]').forEach(function (el) {
       gsap.from(el, { y: 36, opacity: 0, duration: 0.9, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 85%' } });
-    });
-    gsap.utils.toArray('.stat').forEach(function (el) {
-      gsap.fromTo(el, { textContent: 0 }, { textContent: +el.dataset.target, duration: 1.6, ease: 'power1.out',
-        snap: { textContent: 1 }, scrollTrigger: { trigger: el, start: 'top 85%' } });
     });
 
     var track = document.getElementById('galTrack');
